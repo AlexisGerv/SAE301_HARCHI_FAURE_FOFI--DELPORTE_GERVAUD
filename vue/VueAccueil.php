@@ -9,7 +9,7 @@ require_once('vue/VueHeader.php');
     <li><a href="livre.php">Catalogue</a></li>
 </ul>
 <?php
-require_once('vue/vueFooter.php');
+require_once('vue/VueFooter.php');
 ?>
 
   
