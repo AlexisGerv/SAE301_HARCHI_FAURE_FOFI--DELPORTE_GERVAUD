@@ -1,5 +1,90 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.footer-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 1000;
+  pointer-events: none; /* évite de bloquer la page entière */
+}
+
+/* Conteneur arrondi noir/gris */
+.footer-nav-inner {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+
+  padding: 10px 26px;
+  background: #101218;
+  border-radius: 18px;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+/* Boutons */
+.nav-item {
+  position: relative;
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #b0b4c2;
+  text-decoration: none;
+
+  border-radius: 50%;
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.nav-item i {
+  font-size: 20px;
+}
+
+/* Effet hover */
+.nav-item:hover {
+  transform: translateY(-1px) scale(1.03);
+}
+
+/* Onglet actif (maison bleue avec halo) */
+.nav-item.active {
+  color: #00e4ff;
+}
+
+/* Halo lumineux autour de l'icône active */
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  inset: -6px -4px 4px;
+  background: radial-gradient(
+    circle at top,
+    rgba(0, 228, 255, 0.5),
+    transparent 70%
+  );
+  border-radius: inherit;
+  opacity: 1;
+  z-index: -1;
+}
+
+/* Barre de surbrillance au-dessus de l'onglet actif */
+.nav-item.active::after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 52px;
+  height: 4px;
+  background: #00e4ff;
+  border-radius: 999px;
+  box-shadow: 0 0 10px rgba(0, 228, 255, 0.9);
 }
