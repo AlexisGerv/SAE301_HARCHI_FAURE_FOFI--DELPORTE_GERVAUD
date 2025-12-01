@@ -1,6 +1,6 @@
 <?php
 
-require_once('vue/vueHeader.php');
+require_once('vue/VueHeader.php');
 ?>
 <h1>Accueil</h1>
 <p>testons ceci</p>
