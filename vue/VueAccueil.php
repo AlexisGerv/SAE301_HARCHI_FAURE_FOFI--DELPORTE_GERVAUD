@@ -12,6 +12,7 @@
   <p>testons ceci</p>
   <ul>
     <li><a href="index.php">Accueil</a></li>
+    <li><a href="livre.php">Catalogue</a></li>
   </ul>
 </body>
 
