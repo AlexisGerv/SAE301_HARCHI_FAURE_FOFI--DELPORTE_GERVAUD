@@ -9,3 +9,7 @@ require('vueHeader.php');
 </body>
 
 </html>
+
+<?php
+require('vueFooter.php');
+?>
