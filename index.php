@@ -8,6 +8,7 @@
     <script src="script/script.js" defer></script>
 </head>
 <body>
+    <p>bougnoul</p>
     
 </body>
 </html>
