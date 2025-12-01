@@ -10,6 +10,9 @@
 <body>
   <h1>Accueil</h1>
   <p>testons ceci</p>
+  <ul>
+    <li><a href="index.php">Accueil</a></li>
+  </ul>
 </body>
 
 </html>
