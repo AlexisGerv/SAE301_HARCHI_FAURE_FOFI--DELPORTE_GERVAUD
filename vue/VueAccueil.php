@@ -1,6 +1,6 @@
 <?php
 
-require_once('vue/VueHeader.php');
+require_once('./VueHeader.php');
 ?>
 <h1>Accueil</h1>
 <p>testons ceci</p>
@@ -9,7 +9,7 @@ require_once('vue/VueHeader.php');
     <li><a href="livre.php">Catalogue</a></li>
 </ul>
 <?php
-require_once('vue/VueFooter.php');
+require_once('./VueFooter.php');
 ?>
 
   
