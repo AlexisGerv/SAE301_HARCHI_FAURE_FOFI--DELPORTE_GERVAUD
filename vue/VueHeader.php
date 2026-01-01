@@ -10,15 +10,5 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous"
         referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../public/style/style.css">
-    <script src="script/script.js" defer></script>
+    <link rel="stylesheet" href="../public/style/footer-style.css">
 </head>
-
-<body>
-    <form action="/search" method="get">
-        <input type="search" name="q" placeholder="Rechercher..." style="padding: 5px; border: 1px solid #ccc; border-radius: 3px;">
-        <button type="submit" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer;">Rechercher</button>
-    </form>
-    </nav>
-
-    <body>

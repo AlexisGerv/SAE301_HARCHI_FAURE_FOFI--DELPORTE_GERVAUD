@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.wheel-bg {
+  position: absolute;
+  bottom: -55%;
+  left: 50%;
+  width: 120vw;
+  height: 120vw;
+  transform: translateX(-50%);
+  background: linear-gradient(145deg, #f0f0f0, #cfcfcf);
+  border-radius: 50%;
+  box-shadow: inset 0 30px 60px rgba(255, 255, 255, 0.6),
+    inset 0 -40px 60px rgba(0, 0, 0, 0.15), 0 -10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.wheel-container {
+  width: 100vw;
+  height: 60vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.wheel {
+  position: absolute;
+  bottom: -25%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.wheel-container .wheel img {
+  width: 50%;
+  height: auto;
+}
+
+.item {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #ccc;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  transition: transform 0.5s ease, background 0.3s;
+}
+
+.item.active {
+  background: #22aaee;
+  transform: translate(-50%, -50%) scale(1.3);
+}
