@@ -3,7 +3,6 @@ const items = Array.from(document.querySelectorAll(".item"));
 const count = items.length;
 const centerIndex = Math.floor(count / 2);
 
-// géométrie
 const radius = 180;
 const step = Math.PI / 6;
 
