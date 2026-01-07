@@ -36,3 +36,4 @@ try {
     echo "Une erreur est survenue : " . $e->getMessage() . "\n";
     echo $e->getTraceAsString();
 }
+ 
