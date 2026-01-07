@@ -11,6 +11,7 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../public/style/footer-style.css">
+    <link rel="stylesheet" href="../public/style/header-style.css">  
     <form action="index.php" method="GET" class="search">
         <div class="search-row">
             <div class="search-box">
