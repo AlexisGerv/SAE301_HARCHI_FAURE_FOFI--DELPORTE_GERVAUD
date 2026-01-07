@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Classe représentant un emprunt d'un livre par un étudiant.
+ * Classe représentant un emprunt d'un livre par un étudiant. 
  */
 class Emprunt
 {

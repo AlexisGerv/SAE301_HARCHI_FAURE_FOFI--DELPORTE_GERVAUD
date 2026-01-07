@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Classe représentant un avis sur un livre.
+ * Classe représentant un avis sur un livre. 
  */
 class Avis
 {

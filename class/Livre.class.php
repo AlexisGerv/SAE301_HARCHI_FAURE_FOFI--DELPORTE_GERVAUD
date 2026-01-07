@@ -4,7 +4,7 @@
  * Classe Livre
  * 
  * Cette classe représente un ouvrage dans le catalogue de la bibliothèque.
- * Elle contient toutes les informations descriptives d'un livre ainsi que son état (disponible, etc.).
+ * Elle contient toutes les informations descriptives d'un livre ainsi que son état (disponible, etc.). 
  */
 class Livre
 {

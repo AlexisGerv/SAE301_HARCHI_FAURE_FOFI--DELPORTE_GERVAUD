@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Classe représentant un bibliothécaire (utilisateur administrateur).
+ * Classe représentant un bibliothécaire (utilisateur administrateur). 
  */
 class Bibliothecaire
 {

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Classe représentant une suggestion d'achat de livre.
+ * Classe représentant une suggestion d'achat de livre. 
  */
 class Suggestion
 {
