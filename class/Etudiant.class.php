@@ -4,7 +4,7 @@
  * Classe Etudiant
  * 
  * Cette classe représente un utilisateur de type étudiant, connecté via son ENT.
- * Elle stocke les informations personnelles et académiques nécessaires au système.
+ * Elle stocke les informations personnelles et académiques nécessaires au système. 
  */
 class Etudiant
 {
