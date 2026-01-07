@@ -1,0 +1,46 @@
+.search-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Filtres cachés par défaut */
+#filters {
+    display: none;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    background: #f4f7f9;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* Quand on affiche les filtres */
+#filters.show {
+    display: grid;
+}
+
+.filter-btn {
+    background: #e9ecef;
+    border: 1px solid #ced4da;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.apply-btn {
+    background: #0056b3;
+    color: white;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
