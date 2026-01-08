@@ -23,3 +23,13 @@ CREATE  TABLE Livre(
     stock INT NOT NULL,
     disponible BOOLEAN NOT NULL DEFAULT TRUE  -- Disponible = 1, Non disponible = 0 
 )
+
+CREATE TABLE Emprunt(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_utilisateur INT NOT NULL,
+    id_livre INT NOT NULL,
+    date_emprunt DATE NOT NULL,
+    date_retour DATE,
+    FOREIGN KEY (id_utilisateur) REFERENCES Utilisateur(id),
+    FOREIGN KEY (id_livre) REFERENCES Livre(id)
+)
