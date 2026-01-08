@@ -1,6 +1,6 @@
 -- Table pour les utilisateurs
 
-CREATE TABLE Utilisateur (
+CREATE TABLE Utilisateur ( --A modifier
 id INT PRIMARY KEY AUTO_INCREMENT,
 nom VARCHAR(100) NOT NULL,
 prenom VARCHAR(100) NOT NULL,
