@@ -1,0 +1,278 @@
+/* Fichier CSS principal pour la bibliothèque de l'IUT de Dijon */
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --primary-color: #0f172a; /* Gris ardoise foncé */
+  --accent-color: #3b82f6; /* Bleu standard */
+  --accent-hover: #2563eb; /* Bleu foncé (survol) */
+  --bg-color: #f8fafc; /* Gris très clair (fond) */
+  --text-color: #334155; /* Gris texte */
+  --text-light: #64748b; /* Gris texte clair */
+  --white: #ffffff;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Outfit", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Ajustement du pied de page pour qu'il reste en bas de l'écran */
+footer {
+  margin-top: auto;
+}
+
+/* Styles de la section bannière (Hero) */
+.banniere {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
+  color: var(--white);
+  padding: 6rem 1rem 8rem; /* Marge interne supplémentaire en bas pour le chevauchement */
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.banniere::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at top right,
+    rgba(59, 130, 246, 0.1),
+    transparent 40%
+  );
+  pointer-events: none;
+}
+
+.contenu-banniere {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.banniere h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.banniere p {
+  font-size: 1.25rem;
+  color: #94a3b8; /* Gris clair */
+  margin-bottom: 2.5rem;
+}
+
+/* Styles de la barre de recherche */
+.conteneur-recherche {
+  background: var(--white);
+  padding: 0.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.entree-recherche {
+  border: none;
+  outline: none;
+  padding: 1rem 1.5rem;
+  flex: 1;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--text-color);
+  border-radius: 0.8rem;
+}
+
+.bouton-recherche {
+  background-color: var(--accent-color);
+  color: var(--white);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 1rem;
+}
+
+.bouton-recherche:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Grille des fonctionnalités (cartes) */
+.conteneur-fonctionnalites {
+  max-width: 1200px;
+  margin: -4rem auto 4rem; /* Marge négative pour chevaucher la bannière */
+  padding: 0 1rem;
+  position: relative;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.carte-fonctionnalite {
+  background: var(--white);
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-lg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.carte-fonctionnalite:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 10px 10px -5px rgb(0 0 0 / 0.04);
+}
+
+.icone-fonctionnalite {
+  width: 64px;
+  height: 64px;
+  background: #eff6ff;
+  color: var(--accent-color);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  margin: 0 auto 1.5rem;
+}
+
+.titre-fonctionnalite {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--primary-color);
+}
+
+.desc-fonctionnalite {
+  color: var(--text-light);
+}
+
+/* Section des nouveautés (livres) */
+.section-nouveautes {
+  max-width: 1200px;
+  margin: 0 auto 6rem;
+  padding: 0 1rem;
+}
+
+.entete-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 3rem;
+}
+
+.titre-section {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.lien-section {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lien-section:hover {
+  text-decoration: underline;
+}
+
+.grille-livres {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.carte-livre {
+  background: var(--white);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.carte-livre:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.couverture-livre {
+  width: 100%;
+  aspect-ratio: 2/3;
+  background-color: #e2e8f0;
+  object-fit: cover;
+}
+
+.info-livre {
+  padding: 1.25rem;
+}
+
+.titre-livre {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--primary-color);
+}
+
+.auteur-livre {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+/* Styles responsifs pour les écrans plus petits (mobiles/tablettes) */
+@media (max-width: 768px) {
+  .banniere {
+    padding: 4rem 1rem 6rem;
+  }
+
+  .banniere h1 {
+    font-size: 2.25rem;
+  }
+
+  .conteneur-recherche {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0.5rem;
+  }
+
+  .bouton-recherche {
+    width: 100%;
+  }
+
+  .conteneur-fonctionnalites {
+    margin-top: -3rem;
+  }
+}
