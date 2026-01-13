@@ -21,3 +21,5 @@
   </div>
   <script src="../public/script/footer-script.js" defer></script>
 </footer>
+</body>
+</html>
