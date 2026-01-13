@@ -14,6 +14,7 @@ require_once('./VueHeader.php');
     // On vérifie si le tableau $resultats (rempli par le managerLivre) contient des données
     if (!empty($resultats)):?>
 
+        <!-- Affiche le nombre de livres trouvés et le terme de recherche -->
         <p><?= count($resultats) ?> livre(s) trouvé(s) pour "<?= htmlspecialchars($recherche) ?>" :</p>
         
         <?php 
