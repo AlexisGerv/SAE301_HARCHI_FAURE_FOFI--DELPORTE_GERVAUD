@@ -1,10 +1,2 @@
-<?php
-
-require_once('./VueHeader.php');
-?>
-
-<?php
-require_once('./VueFooter.php');
-?>
-
-  
+<h1>Accueil</h1>
+<p>Bienvenue</p>

@@ -1,23 +1,30 @@
 <footer>
   <div class="wheel-container">
     <div class="wheel-bg"></div>
-    <ul class="wheel" id="wheel">
-      <li class="item">
-        <?php include '../public/assets/icons/setting.svg'; ?>
-      </li>
-      <li class="item">
-        <?php include '../public/assets/icons/profile.svg'; ?>
-      </li>
-      <li class="item active">
-        <?php include '../public/assets/icons/house.svg'; ?>
-      </li>
-      <li class="item">
-        <?php include '../public/assets/icons/pin.svg'; ?>
-      </li>
-      <li class="item">
-        <?php include '../public/assets/icons/cart.svg'; ?>
-      </li>
-    </ul>
+
+    <div class="wheel">
+      <div class="item" data-page="VueAccueil.php">
+        Accueil
+      </div>
+
+      <div class="item" data-page="vueSettings.php">
+        Settings
+      </div>
+
+      <div class="item" data-page="VueProfil.php">
+        Profil
+      </div>
+
+      <div class="item" data-page="VueContact.php">
+        Contact
+      </div>
+
+      <div class="item" data-page="VueAbout.php">
+        About
+      </div>
+    </div>
   </div>
-  <script src="../public/script/footer-script.js" defer></script>
+
+  <link rel="stylesheet" href="./public/style/footer-style.css">
+  <script src="./public/script/footer-script.js" defer></script>
 </footer>
