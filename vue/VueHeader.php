@@ -12,10 +12,10 @@
         referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../public/style/footer-style.css">
     <!-- <link rel="stylesheet" href="../public/style/header-style.css">   -->
-    <form action="index.php" method="GET" class="search">
+    <form action="recherche.php" method="post" class="search">
         <div class="search-row">
             <div class="search-box">
-                <input type="text" name="q" placeholder="Rechercher un livre..." value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
+                <input type="text" name="recherche" placeholder="Rechercher un livre..." value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
                 <button type="submit" class="search-btn">🔍</button>
             </div>
 
