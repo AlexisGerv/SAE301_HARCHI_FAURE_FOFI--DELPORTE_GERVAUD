@@ -1,5 +1,7 @@
-<?php
+<?php include './vue/VueHeader.php'; ?>
 
-header("location: vue/vueAccueil.php");
+<main id="content">
+  <?php include './vue/VueAccueil.php'; ?>
+</main>
 
-?>
+<?php include './vue/VueFooter.php'; ?>
