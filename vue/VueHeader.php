@@ -13,11 +13,9 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous"
         referrerpolicy="no-referrer" />
-    
+
     <!-- Styles -->
-    <link rel="stylesheet" href="../public/style/header-style.css">
-    <link rel="stylesheet" href="../public/style/footer-style.css">
-    <link rel="stylesheet" href="../public/style/accueil-style.css">
+    <link rel="stylesheet" href="./public/style/header-style.css">
 </head>
 
 <body>
@@ -25,7 +23,7 @@
         <div class="logo-container">
             <!-- Placeholder for logo if needed -->
         </div>
-        
+
         <form action="../controleurs/recherche.php" method="post" class="search">
             <div class="search-row">
                 <div class="search-box">

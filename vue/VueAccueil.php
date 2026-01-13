@@ -1,6 +1,4 @@
-<?php
-require_once('./VueHeader.php');
-?>
+<link rel="stylesheet" href="./public/style/accueil-style.css">
 <div class="résultats-recherche">
     <?php
     // On vérifie si le tableau $resultats (rempli par le managerLivre) contient des données
@@ -33,7 +31,7 @@ require_once('./VueHeader.php');
         <div class="hero-content">
             <h1>Bienvenue à la Bibliothèque</h1>
             <p>Découvrez notre vaste collection de livres, revues et ressources numériques pour enrichir vos connaissances.</p>
-            <a href="recherche.php" class="btn-explore">Explorer le catalogue</a>
+            <span>Explorer le catalogue</span>
         </div>
     </section>
 
@@ -111,12 +109,3 @@ require_once('./VueHeader.php');
         </div>
     </section>
 </main>
-
-<?php
-require_once('./VueFooter.php');
-?>
-
-
-</body>
-
-</html>
