@@ -16,7 +16,8 @@ class Livre
     private string $isbn;
     private string $categorie;
     private int $nb_exemplaires_total;
-    private bool $disponible;
+    private int $nb_exemplaires_disponible;
+    private bool $est_disponible;
     private string $format;
     private string $editeur;
     private DateTime $date_publication;
@@ -26,9 +27,9 @@ class Livre
 
     private string $image_couverture;
     private string $type_support; // 'papier' ou 'numerique'
-    private $collection;
+    private $collection; 
     private $sudoc;
-
+    private $nb_pages;
 
     public function __construct(array $donnees = [])
     {
@@ -110,13 +111,13 @@ class Livre
         $this->nb_exemplaires_total = $nb_exemplaires_total;
     }
 
-    public function isDisponible(): bool
+    public function getNbExemplairesDisponible(): int
     {
-        return $this->disponible;
+        return $this->nb_exemplaires_disponible;
     }
-    public function setDisponible(bool $disponible): void
+    public function setNbExemplairesDisponible(int $nb_exemplaires_disponible): void
     {
-        $this->disponible = $disponible;
+        $this->nb_exemplaires_disponible = $nb_exemplaires_disponible;
     }
 
     public function getFormat(): string
@@ -191,5 +192,21 @@ class Livre
     public function setSudoc(string $sudoc): void
     {
         $this->sudoc = $sudoc;
+    }
+    public function getEstDisponible(): bool
+    {
+        return $this->est_disponible;
+    }
+    public function setEstDisponible(bool $est_disponible): void
+    {
+        $this->est_disponible = $est_disponible;
+    }
+    public function getNbPages(): int
+    {
+        return $this->nb_pages;
+    }
+    public function setNbPages(int $nb_pages): void
+    {
+        $this->nb_pages = $nb_pages;
     }
 }
