@@ -23,11 +23,11 @@ class Livre
     private string $editeur;
     private string $contributeur; //jsp ce que c'est mais c'est sur le site de la bibliothèque
 
-    private array $mots_cles; 
+    private array $mots_cles;
 
     private string $image_couverture;
     private string $type_support; // 'papier' ou 'numerique'
-    private $_collection; 
+    private $_collection;
     private $sudoc;
     private $nb_pages;
 
@@ -164,9 +164,13 @@ class Livre
     {
         return $this->mots_cles;
     }
-    public function setMotsCles(array $mots_cles): void
+    public function setMotsCles(array|string $mots_cles): void
     {
-        $this->mots_cles = $mots_cles;
+        if (is_string($mots_cles)) {
+            $this->mots_cles = explode(',', $mots_cles);
+        } else {
+            $this->mots_cles = $mots_cles;
+        }
     }
     public function getImageCouverture(): string
     {
@@ -197,9 +201,9 @@ class Livre
     {
         return $this->est_disponible;
     }
-    public function setEstDisponible(bool $est_disponible): void
+    public function setEstDisponible(bool|int $est_disponible): void
     {
-        $this->est_disponible = $est_disponible;
+        $this->est_disponible = (bool) $est_disponible;
     }
     public function getNbPages(): int
     {

@@ -28,8 +28,18 @@ $livre = new Livre([
     'nb_pages' => 1
 ]);
 
+
 // $manager->add($livre);
 
 // $manager->update($livre);
 
-$manager->delete($livre);
+// $manager->delete($livre);
+
+echo $manager->getOne(4)->getTitre(); // Affiche le titre du livre avec l'id 4
+
+// echo $livre->getTitre();  
+
+// $livres = $manager->getAll(); // Affiche tous les livres
+// foreach ($livres as $livre) {
+//     echo $livre->getTitre() . PHP_EOL;
+// }

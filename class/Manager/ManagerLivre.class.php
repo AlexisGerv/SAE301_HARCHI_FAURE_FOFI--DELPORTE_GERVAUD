@@ -70,6 +70,26 @@ class ManagerLivre
         $stmt->execute(['id' => $livre->getId()]);
     }
 
+    public function getAll(): array
+    {
+        $sql = "SELECT * FROM Livre";
+        $stmt = $this->bdd->prepare($sql);
+        $stmt->execute();
+        $livres = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $livres[] = new Livre($row);
+        }
+        return $livres;
+    }
+
+    public function getOne(int $id): ?Livre
+    {
+        $sql = "SELECT * FROM Livre WHERE id = :id";
+        $stmt = $this->bdd->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ? new Livre($row) : null;
+    }
 
     public function rechercherSimple(string $mot)
     {
