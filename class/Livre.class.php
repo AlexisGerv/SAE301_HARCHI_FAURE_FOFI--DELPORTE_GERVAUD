@@ -6,6 +6,7 @@
  * Cette classe représente un ouvrage dans le catalogue de la bibliothèque.
  * Elle contient toutes les informations descriptives d'un livre ainsi que son état (disponible, etc.). 
  */
+declare(strict_types=1); //cela peremt de forcer le type des variables cdt : (string $acteur = 123;) = crash car pas string
 class Livre
 {
     private int $id;
@@ -19,13 +20,15 @@ class Livre
     private string $format;
     private string $editeur;
     private DateTime $date_publication;
-    private string $collection;
-    private array $sujets;
+    private $contributeur;
+
     private array $mots_cles;
-    private string $cote;
-    private string $conditions_pret;
+
     private string $image_couverture;
     private string $type_support; // 'papier' ou 'numerique'
+    private $collection;
+    private $sudoc;
+
 
     public function __construct(array $donnees = [])
     {
@@ -208,5 +211,13 @@ class Livre
     public function setTypeSupport(string $type_support): void
     {
         $this->type_support = $type_support;
+    }
+    public function getSudoc(): string
+    {
+        return $this->sudoc;
+    }
+    public function setSudoc(string $sudoc): void
+    {
+        $this->sudoc = $sudoc;
     }
 }
