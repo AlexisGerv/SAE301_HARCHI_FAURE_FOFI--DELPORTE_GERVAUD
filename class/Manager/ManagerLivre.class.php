@@ -1,6 +1,6 @@
 <?php
-require_once 'connect.php';
-require_once 'Livre.class.php';
+require_once __DIR__ . '/../../modeles/connect.php';
+require_once __DIR__ . '/../Livre.class.php';
 
 
 
@@ -14,21 +14,21 @@ class ManagerLivre
     }
     public function add(Livre $livre)
     {
-        $sql = "INSERT INTO Livre (titre, auteur,_resume, isbn, categorie, nb_exemplaires_total, nb_exemplaires_disponibles, date_publication, est_disponible, format, editeur, mots_cles, image_couverture, type_support, _collection, sudoc, nb_pages) VALUES (:titre, :auteur, :_resume, :isbn, :categorie, :nb_exemplaires_total, :nom_exemplaires_disponibles, :date_publication, :est_disponible, :format, :editeur, :mots_cles, :image_couverture, :type_support, :_collection, :sudoc, :nb_pages)";
+        $sql = "INSERT INTO Livre (titre, auteur,_resume, isbn, categorie, nb_exemplaires_total, nb_exemplaires_disponible, date_publication, est_disponible, format, editeur, mots_cles, image_couverture, type_support, _collection, sudoc, nb_pages) VALUES (:titre, :auteur, :_resume, :isbn, :categorie, :nb_exemplaires_total, :nb_exemplaires_disponible, :date_publication, :est_disponible, :format, :editeur, :mots_cles, :image_couverture, :type_support, :_collection, :sudoc, :nb_pages)";
         $stmt = $this->bdd->prepare($sql);
         $stmt->execute([
             'titre' => $livre->getTitre(),
             'auteur' => $livre->getAuteur(),
-            'resume' => $livre->getResume(),
+            '_resume' => $livre->getResume(),
             'isbn' => $livre->getIsbn(),
             'categorie' => $livre->getCategorie(),
             'nb_exemplaires_total' => $livre->getNbExemplairesTotal(),
-            'nb_exemplaires_disponibles' => $livre->getNbExemplairesDisponible(),
-            'date_publication' => $livre->getDatePublication(),
+            'nb_exemplaires_disponible' => $livre->getNbExemplairesDisponible(),
+            'date_publication' => $livre->getDatePublication()->format('Y-m-d'),
             'est_disponible' => $livre->getEstDisponible(),
             'format' => $livre->getFormat(),
             'editeur' => $livre->getEditeur(),
-            'mots_cles' => $livre->getMotsCles(),
+            'mots_cles' => implode(',', $livre->getMotsCles()),
             'image_couverture' => $livre->getImageCouverture(),
             'type_support' => $livre->getTypeSupport(),
             '_collection' => $livre->getCollection(),
