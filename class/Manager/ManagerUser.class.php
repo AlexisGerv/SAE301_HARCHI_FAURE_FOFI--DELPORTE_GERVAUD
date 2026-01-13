@@ -16,7 +16,7 @@ class ManagerUtilisateur
 
     public function add(Utilisateur $user)
     {
-        $sql = "INSERT INTO User (nom, prenom, mail_iut, mdp, est_admin, peut_emprunter) VALUES (:nom, :prenom, :email, :mot_de_passe, :est_admin, :peut_emprunter)";
+        $sql = "INSERT INTO utilisateur (nom, prenom, mail_iut, mdp, est_admin, peut_emprunter) VALUES (:nom, :prenom, :email, :mot_de_passe, :est_admin, :peut_emprunter)";
         $stmt = $this->bdd->prepare($sql);
         $stmt->execute([
             'nom' => $user->getNom(),
@@ -30,7 +30,7 @@ class ManagerUtilisateur
 
     public function update(Utilisateur $user)
     {
-        $sql = "UPDATE User SET nom = :nom, prenom = :prenom, mail_iut = :email, mdp = :mot_de_passe, est_admin = :est_admin, peut_emprunter = :peut_emprunter WHERE id = :id";
+        $sql = "UPDATE utilisateur SET nom = :nom, prenom = :prenom, mail_iut = :email, mdp = :mot_de_passe, est_admin = :est_admin, peut_emprunter = :peut_emprunter WHERE id = :id";
         $stmt = $this->bdd->prepare($sql);
         $stmt->execute([
             'nom' => $user->getNom(),

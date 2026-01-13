@@ -10,7 +10,7 @@ require_once '../class/User/Etudiant.class.php';
 require_once '../modeles/connect.php';
 
 //Test de la classe ManagerUser
-$utilisateur = new Utilisateur([
+$utilisateur = new Etudiant([
     'id' => 1,
     'nom' => 'Test',
     'prenom' => 'Test',
