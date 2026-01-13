@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="./public/style/accueil-style.css">
 <div class="résultats-recherche">
     <?php
     // On vérifie si le tableau $resultats (rempli par le managerLivre) contient des données
