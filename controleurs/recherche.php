@@ -1,16 +1,16 @@
 <?php
-// On récupère la saisie utilisateur depuis le formulaire du header 
-// trim() enlève les espaces inutiles, htmlspecialchars() protège des scripts malveillants
-$recherche = isset($_GET['recherche']) ? trim(htmlspecialchars($_GET['recherche'])) : '';
+// 1. On inclut d'abord le fichier de la classe (Le Modèle)
+require_once('../class/LivreManager.class.php'); 
+require_once('../class/Livre.class.php'); 
 
-// On initialise un tableau de résultats vide
-$resultats = [];
 
-// On ne lance la recherche que si l'utilisateur a tapé quelque chose
+// 2. Ensuite, on peut créer l'objet et gérer la saisie
+$manager = new LivreManager($pdo); 
+
+$recherche = isset($_GET['q']) ? trim(htmlspecialchars($_GET['q'])) : '';
+
 if (!empty($recherche)) {
-    // On appelle le modèle pour chercher les données (Recherche simple)
-    // $livreManager est l'instance de ta classe de gestion de BDD
-    $resultats = $livreManager->rechercherSimple($recherche);
+    // Utilisation de la méthode du modèle
+    $resultats = $manager->rechercherSimple($recherche);
 }
 ?>
-
