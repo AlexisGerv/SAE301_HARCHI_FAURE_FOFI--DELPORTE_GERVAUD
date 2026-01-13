@@ -12,7 +12,8 @@ class Livre
     private int $id;
     private string $titre;
     private string $auteur;
-    private string $resume;
+    private DateTime $date_publication;
+    private string $_resume;
     private string $isbn;
     private string $categorie;
     private int $nb_exemplaires_total;
@@ -20,14 +21,13 @@ class Livre
     private bool $est_disponible;
     private string $format;
     private string $editeur;
-    private DateTime $date_publication;
-    private $contributeur; //jsp ce que c'est mais c'est sur le site de la bibliothèque
+    private string $contributeur; //jsp ce que c'est mais c'est sur le site de la bibliothèque
 
     private array $mots_cles; 
 
     private string $image_couverture;
     private string $type_support; // 'papier' ou 'numerique'
-    private $collection; 
+    private $_collection; 
     private $sudoc;
     private $nb_pages;
 
@@ -77,11 +77,11 @@ class Livre
 
     public function getResume(): string
     {
-        return $this->resume;
+        return $this->_resume;
     }
-    public function setResume(string $resume): void
+    public function setResume(string $_resume): void
     {
-        $this->resume = $resume;
+        $this->_resume = $_resume;
     }
 
     public function getIsbn(): string
@@ -153,11 +153,11 @@ class Livre
 
     public function getCollection(): string
     {
-        return $this->collection;
+        return $this->_collection;
     }
-    public function setCollection(string $collection): void
+    public function setCollection(string $_collection): void
     {
-        $this->collection = $collection;
+        $this->_collection = $_collection;
     }
 
     public function getMotsCles(): array
