@@ -3,6 +3,7 @@
 /**
  * Classe représentant une suggestion d'achat de livre. 
  */
+declare(strict_types=1);
 class Suggestion
 {
     private string $titre;

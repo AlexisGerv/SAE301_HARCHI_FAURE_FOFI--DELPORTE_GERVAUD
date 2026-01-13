@@ -3,6 +3,7 @@
 /**
  * Classe représentant un avis sur un livre. 
  */
+declare(strict_types=1);
 class Avis
 {
     private int $note; // sur 5 par exemple

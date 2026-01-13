@@ -6,7 +6,7 @@
  * Cette classe représente un ouvrage dans le catalogue de la bibliothèque.
  * Elle contient toutes les informations descriptives d'un livre ainsi que son état (disponible, etc.). 
  */
-declare(strict_types=1); //cela peremt de forcer le type des variables cdt : (string $acteur = 123;) = crash car pas string
+declare(strict_types=1); //cela permet de forcer le type des variables cdt : (string $acteur = 123;) = crash car pas string
 class Livre
 {
     private int $id;
@@ -20,9 +20,9 @@ class Livre
     private string $format;
     private string $editeur;
     private DateTime $date_publication;
-    private $contributeur;
+    private $contributeur; //jsp ce que c'est mais c'est sur le site de la bibliothèque
 
-    private array $mots_cles;
+    private array $mots_cles; 
 
     private string $image_couverture;
     private string $type_support; // 'papier' ou 'numerique'
@@ -159,15 +159,6 @@ class Livre
         $this->collection = $collection;
     }
 
-    public function getSujets(): array
-    {
-        return $this->sujets;
-    }
-    public function setSujets(array $sujets): void
-    {
-        $this->sujets = $sujets;
-    }
-
     public function getMotsCles(): array
     {
         return $this->mots_cles;
@@ -176,25 +167,6 @@ class Livre
     {
         $this->mots_cles = $mots_cles;
     }
-
-    public function getCote(): string
-    {
-        return $this->cote;
-    }
-    public function setCote(string $cote): void
-    {
-        $this->cote = $cote;
-    }
-
-    public function getConditionsPret(): string
-    {
-        return $this->conditions_pret;
-    }
-    public function setConditionsPret(string $conditions_pret): void
-    {
-        $this->conditions_pret = $conditions_pret;
-    }
-
     public function getImageCouverture(): string
     {
         return $this->image_couverture;

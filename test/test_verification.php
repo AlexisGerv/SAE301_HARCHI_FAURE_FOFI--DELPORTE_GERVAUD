@@ -13,7 +13,7 @@ echo "Test des classes en cours...\n";
 
 try {
     $livre = new Livre([
-        'titre' => 'Test Book',
+        'titre' => '123',
         'nb_exemplaires_total' => 5,
         'date_publication' => '2023-01-01',
         'sujets' => [],

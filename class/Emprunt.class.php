@@ -3,6 +3,7 @@
 /**
  * Classe représentant un emprunt d'un livre par un étudiant. 
  */
+declare(strict_types=1);
 class Emprunt
 {
     private int $id;
