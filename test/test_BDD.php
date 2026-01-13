@@ -8,10 +8,11 @@ require_once '../modeles/connect.php';
 $manager = new ManagerLivre($bdd);
 
 $livre = new Livre([
-    'titre' => 'Test',
+    'id' => 1,
+    'titre' => 'Test changé',
     'auteur' => 'Test',
     'resume' => 'Test',
-    'isbn' => 'thqhqegqegqeeg',
+    'isbn' => 'test',
     'categorie' => 'Test',
     'nb_exemplaires_total' => 1,
     'nb_exemplaires_disponible' => 1,
@@ -27,4 +28,8 @@ $livre = new Livre([
     'nb_pages' => 1
 ]);
 
-$manager->add($livre);
+// $manager->add($livre);
+
+$manager->upgrade($livre);
+
+
