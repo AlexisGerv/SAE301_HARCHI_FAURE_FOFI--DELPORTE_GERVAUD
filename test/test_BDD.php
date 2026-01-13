@@ -30,6 +30,6 @@ $livre = new Livre([
 
 // $manager->add($livre);
 
-$manager->upgrade($livre);
+// $manager->update($livre);
 
-
+$manager->delete($livre);
