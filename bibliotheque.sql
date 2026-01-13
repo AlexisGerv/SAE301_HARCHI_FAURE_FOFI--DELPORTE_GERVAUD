@@ -6,9 +6,9 @@ CREATE TABLE utilisateur (
     mail_iut VARCHAR(255) NOT NULL UNIQUE,
     num_etudiant VARCHAR(50) UNIQUE, 
     formation VARCHAR(100), -- Ex: MMI, INFO-COM, GACO/GEA)
-    est_admin boolean NOT NULL DEFAULT FALSE -- Peut emprunter des livres mais interdit si il rend trop de livre en retard ou en mauvais état
+    est_admin boolean NOT NULL DEFAULT FALSE, -- Peut emprunter des livres mais interdit si il rend trop de livre en retard ou en mauvais état
     peut_emprunter boolean NOT NULL DEFAULT TRUE -- Peut emprunter des livres mais interdit si il rend trop de livre en retard ou en mauvais état
-)
+);
 
 CREATE TABLE livre (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -28,8 +28,8 @@ CREATE TABLE livre (
     type_support VARCHAR(50), -- 'papier' ou 'numerique'
     _collection VARCHAR(100),
     nb_pages INT,
-    sudoc VARCHAR(50),
-)
+    sudoc VARCHAR(50)
+);
 
 CREATE TABLE emprunt (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -41,5 +41,5 @@ CREATE TABLE emprunt (
     nombre_prolongations INT NOT NULL DEFAULT 0,
     FOREIGN KEY (utilisateur_id) REFERENCES utilisateur(id),
     FOREIGN KEY (livre_id) REFERENCES livre(id)
-)
+);
 
