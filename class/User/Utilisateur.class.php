@@ -4,12 +4,13 @@
  * Classe représentant un personnel (bibliothécaire ou étudiant). 
  */
 declare(strict_types=1);
-abstract class utilisateur  
+class utilisateur  
 {
+    protected int $id;
     protected string $nom;
     protected string $prenom;
     protected string $mail_iut;
-    protected string $password;
+    protected string $mdp;
     protected bool $est_admin; //si true, l'utilisateur est un bibliothécaire
     protected bool $peut_emprunter; // true si l'utilisateur peut emprunter, false sinon
 
@@ -29,6 +30,15 @@ abstract class utilisateur
     }
 
     // Getters et Setters
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
 
     public function getNom(): string
     {
@@ -57,13 +67,13 @@ abstract class utilisateur
         $this->mail_iut = $mail_iut;
     }
 
-    public function getPassword(): string
+    public function getMdp(): string
     {
-        return $this->password;
+        return $this->mdp;
     }
-    public function setPassword(string $password): void
+    public function setMdp(string $mdp): void
     {
-        $this->password = $password;
+        $this->mdp = $mdp;
     }
 
     public function getEstAdmin(): bool
