@@ -2,7 +2,7 @@
 require_once 'connect.php';
 require_once 'Livre.class.php';
 
-declare(strict_types=1);
+
 
 class ManagerLivre
 {

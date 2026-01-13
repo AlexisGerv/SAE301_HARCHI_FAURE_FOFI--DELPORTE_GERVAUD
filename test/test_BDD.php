@@ -1,6 +1,9 @@
 <?php
 
-require_once 'Manager/ManagerLivre.class.php';
+require_once '../class/Manager/ManagerLivre.class.php';
+require_once '../class/Livre.class.php';
+require_once '../modeles/connect.php';
+
 
 $manager = new ManagerLivre($bdd);
 
