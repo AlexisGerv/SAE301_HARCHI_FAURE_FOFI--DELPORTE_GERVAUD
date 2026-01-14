@@ -7,9 +7,9 @@
  * Elle stocke les informations personnelles et académiques nécessaires au système. 
  */
 
-class Etudiant extends utilisateur
+class Etudiant extends Utilisateur
 {
-    protected string $numero_etudiant;
+    protected string $num_etudiant;
     protected string $formation; //mmi,gaco,etc...
 
     public function __construct(array $donnees = [])
@@ -28,13 +28,13 @@ class Etudiant extends utilisateur
 
     // --- Getters et Setters ---
 
-    public function getNumeroEtudiant(): string
+    public function getNumEtudiant(): string
     {
-        return $this->numero_etudiant;
+        return $this->num_etudiant;
     }
-    public function setNumeroEtudiant(string $numero_etudiant): void
+    public function setNumEtudiant(string $num_etudiant): void
     {
-        $this->numero_etudiant = $numero_etudiant;
+        $this->num_etudiant = $num_etudiant;
     }
 
     public function getMailIut(): string

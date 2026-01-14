@@ -4,7 +4,7 @@
  * Classe représentant un personnel (bibliothécaire ou étudiant). 
  */
 declare(strict_types=1);
-class utilisateur  
+class Utilisateur  
 {
     protected int $id;
     protected string $nom;

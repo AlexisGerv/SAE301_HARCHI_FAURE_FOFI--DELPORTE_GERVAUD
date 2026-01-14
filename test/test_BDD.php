@@ -10,19 +10,23 @@ require_once '../class/User/Etudiant.class.php';
 require_once '../modeles/connect.php';
 
 //Test de la classe ManagerUser
-$utilisateur = new Etudiant([
+$etudiant = new Etudiant([
     'id' => 1,
-    'nom' => 'Test',
-    'prenom' => 'Test',
-    'mail_iut' => 'test',
-    'mdp' => 'test',
+    'nom' => 'ezgf',
+    'prenom' => 'egeg',
+    'mail_iut' => 'egeg@mmi',
+    'mdp' => 'gegegdrg',
+    'num_etudiant' => '123456',
+    'formation' => 'MMI',
     'est_admin' => true,
     'peut_emprunter' => true
 ]);
 
 $manager = new ManagerUtilisateur($bdd);
 
-$manager->add($utilisateur);
+$manager->add($etudiant); 
+
+// $manager->update($utilisateur);
 
 // Test de la classe ManagerLivre
 
