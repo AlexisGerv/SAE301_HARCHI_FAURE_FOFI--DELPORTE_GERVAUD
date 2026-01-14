@@ -1,14 +1,14 @@
 <?php
 require_once("./modeles/connect.php");
 
-// 2. Gestion de la saisie utilisateur
-// On récupère 'q' depuis le formulaire du header (VueHeader.php)
+//  Gestion de la saisie utilisateur
+// On récupère 'recherche' depuis le formulaire du header (VueHeader.php)
 $recherche = isset($_POST['recherche']) ? trim(htmlspecialchars($_POST['recherche'])) : '';
 
 // On initialise le tableau pour éviter les erreurs si aucune recherche n'est faite
 $resultats = [];
 
-// 3. Traitement de la recherche simple
+//Traitement de la recherche simple
 if (!empty($recherche)) {
     // Préparation de la requête SQL (Basée sur ton fichier bibliotheque.sql)
     // On cherche dans 'titre' ou '_resume'
