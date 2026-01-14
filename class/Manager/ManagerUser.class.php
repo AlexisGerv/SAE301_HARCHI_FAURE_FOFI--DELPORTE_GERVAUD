@@ -21,7 +21,7 @@ class ManagerUtilisateur
         $num_etudiant = null;
         $formation = null;
 
-        if ($user instanceof Etudiant) {
+        if ($user instanceof Etudiant) { //etudiant ou pas, t qui ?
             $num_etudiant = $user->getNumEtudiant();
             $formation = $user->getFormation();
         }
