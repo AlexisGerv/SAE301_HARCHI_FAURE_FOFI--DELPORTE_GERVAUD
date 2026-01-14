@@ -1,17 +1,10 @@
 <?php
-
-// require_once '../class/Manager/ManagerLivre.class.php';
-// require_once '../class/Livre.class.php';
-
-require_once '../class/Manager/ManagerUser.class.php';
-require_once '../class/User/Utilisateur.class.php';
-require_once '../class/User/Etudiant.class.php';
-
+require_once '../autoload.php';
 require_once '../modeles/connect.php';
 
 //Test de la classe ManagerUser
 $etudiant = new Etudiant([
-    'id' => 16,
+    'id' => 14,
     'nom' => 'frgnef',
     'prenom' => 'zegrgffzefgeg',
     'mail_iut' => 'ezfzbrbefgeg@mmi',
@@ -23,7 +16,7 @@ $etudiant = new Etudiant([
 ]);
 
 $professeur = new Utilisateur([
-    'id' => 17,
+    'id' => 15,
     'nom' => 'prof2',
     'prenom' => 'prof2',
     'mail_iut' => 'prof2@mmi',
@@ -73,7 +66,7 @@ $manager->delete($professeur);
 
 // $manager->add($livre);
 
-$manager->update($livre);
+// $manager->update($livre);
 
 // $manager->delete($livre);
 

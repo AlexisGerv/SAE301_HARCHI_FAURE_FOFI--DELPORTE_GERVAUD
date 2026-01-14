@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../../modeles/connect.php';
-require_once __DIR__ . '/../../class/User/Utilisateur.class.php';
-require_once __DIR__ . '/../../class/User/Etudiant.class.php';
+require_once __DIR__ . '/../../autoload.php';
 
 
 
@@ -21,7 +20,7 @@ class ManagerUtilisateur
         $num_etudiant = null;
         $formation = null;
 
-        if ($user instanceof Etudiant) { //etudiant ou pas, t qui ?
+        if ($user instanceof Etudiant) {
             $num_etudiant = $user->getNumEtudiant();
             $formation = $user->getFormation();
         }
