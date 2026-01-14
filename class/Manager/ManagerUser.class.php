@@ -14,64 +14,64 @@ class ManagerUtilisateur
         $this->bdd = $bdd;
     }
 
-    public function add(Etudiant $user)
+    public function add(Utilisateur $user)
     {
+        $nom = $user->getNom();
+        $prenom = $user->getPrenom();
+        $num_etudiant = null;
+        $formation = null;
+
+        if ($user instanceof Etudiant) {
+            $num_etudiant = $user->getNumEtudiant();
+            $formation = $user->getFormation();
+        }
+
         $sql = "INSERT INTO utilisateur (nom, prenom, mail_iut, mdp,num_etudiant, formation, est_admin, peut_emprunter) VALUES (:nom, :prenom, :email, :mdp,:num_etudiant, :formation, :est_admin, :peut_emprunter)";
         $stmt = $this->bdd->prepare($sql);
         $stmt->execute([
-            'nom' => $user->getNom(),
-            'prenom' => $user->getPrenom(),
+            'nom' => $nom,
+            'prenom' => $prenom,
             'email' => $user->getMailIut(),
             'mdp' => $user->getMdp(),
-            'num_etudiant' => $user->getNumEtudiant(),
-            'formation' => $user->getFormation(),
+            'num_etudiant' => $num_etudiant,
+            'formation' => $formation,
             'est_admin' => $user->getEstAdmin(),
             'peut_emprunter' => $user->getPeutEmprunter()
         ]);
     }
 
-    public function update(Etudiant $user)
+    public function update(Utilisateur $user)
     {
+        $nom = $user->getNom();
+        $prenom = $user->getPrenom();
+        $num_etudiant = null;
+        $formation = null;
+
+        if ($user instanceof Etudiant) {
+            $num_etudiant = $user->getNumEtudiant();
+            $formation = $user->getFormation();
+        }
+        
         $sql = "UPDATE utilisateur SET nom = :nom, prenom = :prenom, mail_iut = :email, mdp = :mdp, num_etudiant = :num_etudiant, formation = :formation, est_admin = :est_admin, peut_emprunter = :peut_emprunter WHERE id = :id";
         $stmt = $this->bdd->prepare($sql);
         $stmt->execute([
-            'nom' => $user->getNom(),
-            'prenom' => $user->getPrenom(),
+            'nom' => $nom,
+            'prenom' => $prenom,
             'email' => $user->getMailIut(),
             'mdp' => $user->getMdp(),
-            'num_etudiant' => $user->getNumEtudiant(),
-            'formation' => $user->getFormation(),
+            'num_etudiant' => $num_etudiant,
+            'formation' => $formation,
             'est_admin' => $user->getEstAdmin(),
             'peut_emprunter' => $user->getPeutEmprunter(),
             'id' => $user->getId()
         ]);
     }
 
-    public function delete(Etudiant $user)
+    public function delete(Utilisateur $user)
     {
         $sql = "DELETE FROM utilisateur WHERE id = :id";
         $stmt = $this->bdd->prepare($sql);
         $stmt->execute(['id' => $user->getId()]);
     }
 
-    public function getAll(): array
-    {
-        $sql = "SELECT * FROM utilisateur";
-        $stmt = $this->bdd->prepare($sql);
-        $stmt->execute();
-        $users = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $users[] = new Etudiant($row);
-        }
-        return $users;
-    }
-
-    public function getOne(int $id): ?Etudiant
-    {
-        $sql = "SELECT * FROM utilisateur WHERE id = :id";
-        $stmt = $this->bdd->prepare($sql);
-        $stmt->execute(['id' => $id]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $row ? new Etudiant($row) : null;
-    }
 }
