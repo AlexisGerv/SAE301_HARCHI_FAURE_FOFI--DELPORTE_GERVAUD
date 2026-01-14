@@ -73,7 +73,7 @@ $manager->delete($professeur);
 
 // $manager->add($livre);
 
-// $manager->update($livre);
+$manager->update($livre);
 
 // $manager->delete($livre);
 
