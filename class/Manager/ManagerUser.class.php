@@ -14,7 +14,7 @@ class ManagerUtilisateur
         $this->bdd = $bdd;
     }
 
-    public function add(Utilisateur $user)
+    public function add(Utilisateur $user): int
     {
         $nom = $user->getNom();
         $prenom = $user->getPrenom();
@@ -51,7 +51,7 @@ class ManagerUtilisateur
             $num_etudiant = $user->getNumEtudiant();
             $formation = $user->getFormation();
         }
-        
+
         $sql = "UPDATE utilisateur SET nom = :nom, prenom = :prenom, mail_iut = :email, mdp = :mdp, num_etudiant = :num_etudiant, formation = :formation, est_admin = :est_admin, peut_emprunter = :peut_emprunter WHERE id = :id";
         $stmt = $this->bdd->prepare($sql);
         $stmt->execute([
@@ -69,9 +69,13 @@ class ManagerUtilisateur
 
     public function delete(Utilisateur $user)
     {
+        $sqlEmprunt = "DELETE FROM emprunt WHERE utilisateur_id = :id";
+        $stmt1 = $this->bdd->prepare($sqlEmprunt);
+        $stmt1->execute([':id' => $user->getId()]);
+
         $sql = "DELETE FROM utilisateur WHERE id = :id";
-        $stmt = $this->bdd->prepare($sql);
-        $stmt->execute(['id' => $user->getId()]);
+        $stmt2 = $this->bdd->prepare($sql);
+        $stmt2->execute(['id' => $user->getId()]);
     }
 
 }

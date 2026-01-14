@@ -11,22 +11,39 @@ require_once '../modeles/connect.php';
 
 //Test de la classe ManagerUser
 $etudiant = new Etudiant([
-    'id' => 1,
-    'nom' => 'ezgf',
-    'prenom' => 'egeg',
-    'mail_iut' => 'egeg@mmi',
-    'mdp' => 'gegegdrg',
-    'num_etudiant' => '123456',
+    'id' => 16,
+    'nom' => 'frgnef',
+    'prenom' => 'zegrgffzefgeg',
+    'mail_iut' => 'ezfzbrbefgeg@mmi',
+    'mdp' => 'gegegzffzrbdrg',
+    'num_etudiant' => '255221234567',
     'formation' => 'MMI',
+    'est_admin' => false,
+    'peut_emprunter' => true
+]);
+
+$professeur = new Utilisateur([
+    'id' => 17,
+    'nom' => 'prof2',
+    'prenom' => 'prof2',
+    'mail_iut' => 'prof2@mmi',
+    'mdp' => 'prof2',
     'est_admin' => true,
     'peut_emprunter' => true
 ]);
 
 $manager = new ManagerUtilisateur($bdd);
 
-$manager->add($etudiant); 
 
-// $manager->update($utilisateur);
+$manager->delete($etudiant);
+$manager->delete($professeur);
+// First add the users (this sets their IDs)
+// $manager->add($etudiant);
+// $manager->add($professeur);
+
+// Now delete works because they have IDs
+
+
 
 // Test de la classe ManagerLivre
 
