@@ -28,8 +28,8 @@ $livre = new Livre([
     'nb_pages' => 1
 ]);
 
-// $manager->add($livre);
+$manager->add($livre);
 
-// $manager->update($livre);
+$manager->update($livre);
 
-$manager->delete($livre);
+// $manager->delete($livre);
