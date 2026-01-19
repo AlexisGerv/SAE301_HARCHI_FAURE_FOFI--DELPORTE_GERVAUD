@@ -13,16 +13,41 @@ class ManagerEmprunt
 
     public function add(Emprunt $emprunt): void
     {
-        $sql = "INSERT INTO Emprunt (etudiant_id, livre_id, date_emprunt, date_retour_prevue, est_en_retard, nombre_prolongations) 
-                VALUES (:etudiant_id, :livre_id, :date_emprunt, :date_retour_prevue, :est_en_retard, :nombre_prolongations)";
+        // 1. Fetch denormalized data if missing
+        if (empty($emprunt->getNomEmprunteur()) || empty($emprunt->getPrenomEmprunteur())) {
+            $sql = "SELECT nom, prenom FROM Utilisateur WHERE id = :id";
+            $stmt = $this->bdd->prepare($sql);
+            $stmt->execute(['id' => $emprunt->getEtudiantId()]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($user) {
+                $emprunt->setNomEmprunteur($user['nom']);
+                $emprunt->setPrenomEmprunteur($user['prenom']);
+            }
+        }
+
+        if (empty($emprunt->getTitreLivre())) {
+            $sql = "SELECT titre FROM Livre WHERE id = :id";
+            $stmt = $this->bdd->prepare($sql);
+            $stmt->execute(['id' => $emprunt->getLivreId()]);
+            $livre = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($livre) {
+                $emprunt->setTitreLivre($livre['titre']);
+            }
+        }
+
+        $sql = "INSERT INTO Emprunt (utilisateur_id, livre_id, date_emprunt, date_retour_prevue, est_en_retard, nombre_prolongations, nom_emprunteur, prenom_emprunteur, titre_livre) 
+                VALUES (:utilisateur_id, :livre_id, :date_emprunt, :date_retour_prevue, :est_en_retard, :nombre_prolongations, :nom_emprunteur, :prenom_emprunteur, :titre_livre)";
         $stmt = $this->bdd->prepare($sql);
         $stmt->execute([
-            'etudiant_id' => $emprunt->getEtudiantId(),
+            'utilisateur_id' => $emprunt->getEtudiantId(),
             'livre_id' => $emprunt->getLivreId(),
             'date_emprunt' => $emprunt->getDateEmprunt()->format('Y-m-d'),
             'date_retour_prevue' => $emprunt->getDateRetourPrevue()->format('Y-m-d'),
             'est_en_retard' => (int) $emprunt->isEstEnRetard(), // Cast bool to int for DB if needed, or PDO handles it. usually tinyint.
-            'nombre_prolongations' => $emprunt->getNombreProlongations()
+            'nombre_prolongations' => $emprunt->getNombreProlongations(),
+            'nom_emprunteur' => $emprunt->getNomEmprunteur(),
+            'prenom_emprunteur' => $emprunt->getPrenomEmprunteur(),
+            'titre_livre' => $emprunt->getTitreLivre()
         ]);
 
         $emprunt->setId((int) $this->bdd->lastInsertId()); // Cast int for DB if needed, or PDO handles it. usually tinyint.
@@ -31,7 +56,7 @@ class ManagerEmprunt
     public function update(Emprunt $emprunt): void
     {
         $sql = "UPDATE Emprunt SET 
-                etudiant_id = :etudiant_id, 
+                utilisateur_id = :utilisateur_id, 
                 livre_id = :livre_id, 
                 date_emprunt = :date_emprunt, 
                 date_retour_prevue = :date_retour_prevue, 
@@ -40,7 +65,7 @@ class ManagerEmprunt
                 WHERE id = :id";
         $stmt = $this->bdd->prepare($sql);
         $stmt->execute([
-            'etudiant_id' => $emprunt->getEtudiantId(),
+            'utilisateur_id' => $emprunt->getEtudiantId(),
             'livre_id' => $emprunt->getLivreId(),
             'date_emprunt' => $emprunt->getDateEmprunt()->format('Y-m-d'),
             'date_retour_prevue' => $emprunt->getDateRetourPrevue()->format('Y-m-d'),
@@ -80,7 +105,7 @@ class ManagerEmprunt
 
     public function getAllByEtudiant(int $etudiantId): array
     {
-        $sql = "SELECT * FROM Emprunt WHERE etudiant_id = :etudiant_id";
+        $sql = "SELECT * FROM Emprunt WHERE utilisateur_id = :etudiant_id";
         $stmt = $this->bdd->prepare($sql);
         $stmt->execute(['etudiant_id' => $etudiantId]);
         $emprunts = [];

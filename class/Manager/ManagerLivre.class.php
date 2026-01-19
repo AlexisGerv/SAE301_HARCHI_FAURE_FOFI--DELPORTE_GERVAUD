@@ -35,6 +35,9 @@ class ManagerLivre
             'sudoc' => $livre->getSudoc(),
             'nb_pages' => $livre->getNbPages()
         ]);
+
+        // Set the auto-generated ID on the Livre object
+        $livre->setId((int) $this->bdd->lastInsertId());
     }
 
     public function update(Livre $livre)
@@ -91,5 +94,5 @@ class ManagerLivre
         return $row ? new Livre($row) : null;
     }
 
-    
+
 }

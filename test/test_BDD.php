@@ -113,6 +113,23 @@ try {
         echo "[FAIL] Emprunt non trouvé en BDD.\n";
     }
 
+    if ($empruntRecupere) {
+        echo "\n--- Vérification des données dénormalisées ---\n";
+        echo "Nom emprunteur (Attendu: Dupont): " . $empruntRecupere->getNomEmprunteur() . "\n";
+        echo "Prénom emprunteur (Attendu: Jean): " . $empruntRecupere->getPrenomEmprunteur() . "\n";
+        echo "Titre livre (Attendu: PHP pour les Nuls): " . $empruntRecupere->getTitreLivre() . "\n";
+
+        if (
+            $empruntRecupere->getNomEmprunteur() === 'Dupont' &&
+            $empruntRecupere->getPrenomEmprunteur() === 'Jean' &&
+            $empruntRecupere->getTitreLivre() === 'PHP pour les Nuls'
+        ) {
+            echo "[PASS] Données dénormalisées correctes.\n";
+        } else {
+            echo "[FAIL] Données dénormalisées incorrectes.\n";
+        }
+    }
+
 } catch (Exception $e) {
     echo "\n[ERREUR CRITIQUE] : " . $e->getMessage();
     echo "\nTrace : " . $e->getTraceAsString();

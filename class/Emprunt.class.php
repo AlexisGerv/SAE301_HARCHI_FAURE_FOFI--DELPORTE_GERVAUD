@@ -17,6 +17,11 @@ class Emprunt
     private bool $est_en_retard;
     private int $nombre_prolongations;
 
+    // Denormalized data for readability in DB
+    private string $nom_emprunteur = '';
+    private string $prenom_emprunteur = '';
+    private string $titre_livre = '';
+
     public function __construct(array $donnees = [])
     {
         $this->hydrate($donnees);
@@ -51,6 +56,12 @@ class Emprunt
     public function setEtudiantId($etudiant_id): void
     {
         $this->etudiant_id = (int) $etudiant_id;
+    }
+
+    // Alias for hydration since DB column is 'utilisateur_id'
+    public function setUtilisateurId($id): void
+    {
+        $this->setEtudiantId($id);
     }
 
     public function setEtudiant(Utilisateur $etudiant): void
@@ -114,5 +125,37 @@ class Emprunt
     public function setNombreProlongations($nombre_prolongations): void
     {
         $this->nombre_prolongations = (int) $nombre_prolongations;
+    }
+
+    // Getters and Setters for denormalized data
+
+    public function getNomEmprunteur(): string
+    {
+        return $this->nom_emprunteur;
+    }
+
+    public function setNomEmprunteur(string $nom_emprunteur): void
+    {
+        $this->nom_emprunteur = $nom_emprunteur;
+    }
+
+    public function getPrenomEmprunteur(): string
+    {
+        return $this->prenom_emprunteur;
+    }
+
+    public function setPrenomEmprunteur(string $prenom_emprunteur): void
+    {
+        $this->prenom_emprunteur = $prenom_emprunteur;
+    }
+
+    public function getTitreLivre(): string
+    {
+        return $this->titre_livre;
+    }
+
+    public function setTitreLivre(string $titre_livre): void
+    {
+        $this->titre_livre = $titre_livre;
     }
 }
