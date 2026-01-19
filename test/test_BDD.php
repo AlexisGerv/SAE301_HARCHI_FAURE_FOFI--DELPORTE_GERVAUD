@@ -1,80 +1,121 @@
 <?php
-require_once '../autoload.php';
-require_once '../modeles/connect.php';
+// Comprehensive Integration Test for Emprunt Flow
+// This script will:
+// 1. CLEAR the database tables (Emprunt, Livre, Utilisateur)
+// 2. Create a User (Etudiant)
+// 3. Create a Book (Livre)
+// 4. Create an Emprunt linking them
+// 5. Verify data retrieval
 
-//Test de la classe ManagerUser
-$etudiant = new Etudiant([
-    'id' => 14,
-    'nom' => 'frgnef',
-    'prenom' => 'zegrgffzefgeg',
-    'mail_iut' => 'ezfzbrbefgeg@mmi',
-    'mdp' => 'gegegzffzrbdrg',
-    'num_etudiant' => '255221234567',
-    'formation' => 'MMI',
-    'est_admin' => false,
-    'peut_emprunter' => true
-]);
+declare(strict_types=1);
 
-$professeur = new Utilisateur([
-    'id' => 15,
-    'nom' => 'prof2',
-    'prenom' => 'prof2',
-    'mail_iut' => 'prof2@mmi',
-    'mdp' => 'prof2',
-    'est_admin' => true,
-    'peut_emprunter' => true
-]);
+require_once __DIR__ . '/../autoload.php';
+require_once __DIR__ . '/../modeles/connect.php'; // Provides $bdd (PDO)
 
-$manager = new ManagerUtilisateur($bdd);
+echo "<h1>Test Intégration Système - Emprunt</h1>";
+echo "<pre>";
 
+try {
+    // 1. CLEAN DATABASE
+    echo "--- Nettoyage de la Base de Données ---\n";
+    // Delete in order to respect FK constraints (Emprunt depends on User/Livre)
+    $bdd->exec("DELETE FROM Emprunt");
+    $bdd->exec("DELETE FROM Livre");
+    $bdd->exec("DELETE FROM Utilisateur");
+    // Reset Auto Increment if possible (optional, but cleaner for tests)
+    $bdd->exec("ALTER TABLE Emprunt AUTO_INCREMENT = 1");
+    $bdd->exec("ALTER TABLE Livre AUTO_INCREMENT = 1");
+    $bdd->exec("ALTER TABLE Utilisateur AUTO_INCREMENT = 1");
+    echo "[OK] Tables vidées.\n\n";
 
-$manager->delete($etudiant);
-$manager->delete($professeur);
-// First add the users (this sets their IDs)
-// $manager->add($etudiant);
-// $manager->add($professeur);
+    // 2. CREATE USER (Etudiant)
+    echo "--- Création d'un Étudiant ---\n";
+    $managerUser = new ManagerUtilisateur($bdd);
+    $etudiant = new Etudiant([
+        'nom' => 'Dupont',
+        'prenom' => 'Jean',
+        'mail_iut' => 'jean.dupont@mmi.edu',
+        'mdp' => 'password123',
+        'num_etudiant' => '20230001',
+        'formation' => 'MMI',
+        'est_admin' => false,
+        'peut_emprunter' => true
+    ]);
 
-// Now delete works because they have IDs
+    // Check if ManagerUser uses add/insert and if it handles inheritance correctly
+    // Assuming ManagerUtilisateur handles insertion of Utilisateur/Etudiant
+    $managerUser->add($etudiant);
+    echo "[OK] Étudiant ajouté avec ID: " . $etudiant->getUserId() . "\n\n";
 
+    // 3. CREATE BOOK
+    echo "--- Création d'un Livre ---\n";
+    $managerLivre = new ManagerLivre($bdd);
+    $livre = new Livre([
+        'titre' => 'PHP pour les Nuls',
+        'auteur' => 'Jean-Pierre',
+        'resume' => 'Apprendre le PHP facilement.',
+        'isbn' => '978-3-16-148410-0',
+        'categorie' => 'Informatique',
+        'nb_exemplaires_total' => 5,
+        'nb_exemplaires_disponible' => 5,
+        'date_publication' => new DateTime('2023-01-01'),
+        'est_disponible' => true,
+        'format' => 'Broché',
+        'editeur' => 'Editions Tech',
+        'mots_cles' => ['PHP', 'Web'], // ManagerLivre expect array for implode? Or string? ManagerLivre:31 implode(',', ...), so it expects array.
+        'image_couverture' => 'cover.jpg',
+        'type_support' => 'Livre',
+        '_collection' => 'Collection Pour les Nuls',
+        'sudoc' => '123456789',
+        'nb_pages' => 300
+    ]);
+    $managerLivre->add($livre);
+    echo "[OK] Livre ajouté avec ID: " . $livre->getId() . "\n\n";
 
+    // 4. CREATE EMPRUNT
+    echo "--- Création d'un Emprunt ---\n";
+    $managerEmprunt = new ManagerEmprunt($bdd);
 
-// Test de la classe ManagerLivre
+    $dateEmprunt = new DateTime();
+    $dateRetour = new DateTime('+15 days');
 
-// $manager = new ManagerLivre($bdd);
+    $emprunt = new Emprunt();
+    $emprunt->setEtudiant($etudiant); // Object setter we just added
+    $emprunt->setLivre($livre);       // Object setter we just added
+    $emprunt->setDateEmprunt($dateEmprunt);
+    $emprunt->setDateRetourPrevue($dateRetour);
+    $emprunt->setEstEnRetard(false);
+    $emprunt->setNombreProlongations(0);
 
-// $livre = new Livre([
-//     'id' => 1,
-//     'titre' => 'Test changé',
-//     'auteur' => 'Test',
-//     'resume' => 'Test',
-//     'isbn' => 'test',
-//     'categorie' => 'Test',
-//     'nb_exemplaires_total' => 1,
-//     'nb_exemplaires_disponible' => 1,
-//     'date_publication' => new DateTime(),
-//     'est_disponible' => true,
-//     'format' => 'Test',
-//     'editeur' => 'Test',
-//     'mots_cles' => ['Test'],
-//     'image_couverture' => 'Test',
-//     'type_support' => 'Test',
-//     '_collection' => 'Test',
-//     'sudoc' => 'Test',
-//     'nb_pages' => 1
-// ]);
+    $managerEmprunt->add($emprunt);
+    echo "[OK] Emprunt ajouté avec ID: " . $emprunt->getId() . "\n";
+    echo "    - Etudiant ID : " . $emprunt->getEtudiantId() . "\n";
+    echo "    - Livre ID    : " . $emprunt->getLivreId() . "\n\n";
 
+    // 5. VERIFY
+    echo "--- Vérification Lecture (GetOne) ---\n";
+    $empruntRecupere = $managerEmprunt->getOne($emprunt->getId());
 
-// $manager->add($livre);
+    if ($empruntRecupere) {
+        echo "[OK] Emprunt récupéré de la BDD.\n";
+        if ($empruntRecupere->getEtudiantId() === $etudiant->getUserId()) {
+            echo "[PASS] ID Étudiant correspond.\n";
+        } else {
+            echo "[FAIL] Erreur ID Étudiant: " . $empruntRecupere->getEtudiantId() . " vs " . $etudiant->getUserId() . "\n";
+        }
 
-// $manager->update($livre);
+        if ($empruntRecupere->getLivreId() === $livre->getId()) {
+            echo "[PASS] ID Livre correspond.\n";
+        } else {
+            echo "[FAIL] Erreur ID Livre: " . $empruntRecupere->getLivreId() . " vs " . $livre->getId() . "\n";
+        }
+    } else {
+        echo "[FAIL] Emprunt non trouvé en BDD.\n";
+    }
 
-// $manager->delete($livre);
+} catch (Exception $e) {
+    echo "\n[ERREUR CRITIQUE] : " . $e->getMessage();
+    echo "\nTrace : " . $e->getTraceAsString();
+}
 
-// echo $manager->getOne(4)->getTitre(); // Affiche le titre du livre avec l'id 4
-
-// echo $livre->getTitre();  
-
-// $livres = $manager->getAll(); // Affiche tous les livres
-// foreach ($livres as $livre) {
-//     echo $livre->getTitre() . PHP_EOL;
-// }
+echo "</pre>";

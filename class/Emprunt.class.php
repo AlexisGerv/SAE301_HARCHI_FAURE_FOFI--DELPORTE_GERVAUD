@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+require_once __DIR__ . '/../autoload.php';
+
 /**
  * Classe représentant un emprunt d'un livre par un étudiant. 
  */
-declare(strict_types=1);
 class Emprunt
 {
     private int $id;
-    private string $etudiant_id; // Référence à numero_etudiant
+    private int $etudiant_id; // Référence à l'ID de l'utilisateur
     private int $livre_id;
     private DateTime $date_emprunt;
     private DateTime $date_retour_prevue;
@@ -35,27 +38,38 @@ class Emprunt
     {
         return $this->id;
     }
-    public function setId(int $id): void
+    public function setId($id): void
     {
-        $this->id = $id;
+        $this->id = (int) $id;
     }
 
-    public function getEtudiantId(): string
+    public function getEtudiantId(): int
     {
         return $this->etudiant_id;
     }
-    public function setEtudiantId(string $etudiant_id): void
+
+    public function setEtudiantId($etudiant_id): void
     {
-        $this->etudiant_id = $etudiant_id;
+        $this->etudiant_id = (int) $etudiant_id;
+    }
+
+    public function setEtudiant(Utilisateur $etudiant): void
+    {
+        $this->setEtudiantId($etudiant->getUserId());
     }
 
     public function getLivreId(): int
     {
         return $this->livre_id;
     }
-    public function setLivreId(int $livre_id): void
+    public function setLivreId($livre_id): void
     {
-        $this->livre_id = $livre_id;
+        $this->livre_id = (int) $livre_id;
+    }
+
+    public function setLivre(Livre $livre): void
+    {
+        $this->setLivreId($livre->getId());
     }
 
     public function getDateEmprunt(): DateTime
@@ -88,17 +102,17 @@ class Emprunt
     {
         return $this->est_en_retard;
     }
-    public function setEstEnRetard(bool $est_en_retard): void
+    public function setEstEnRetard($est_en_retard): void
     {
-        $this->est_en_retard = $est_en_retard;
+        $this->est_en_retard = (bool) $est_en_retard;
     }
 
     public function getNombreProlongations(): int
     {
         return $this->nombre_prolongations;
     }
-    public function setNombreProlongations(int $nombre_prolongations): void
+    public function setNombreProlongations($nombre_prolongations): void
     {
-        $this->nombre_prolongations = $nombre_prolongations;
+        $this->nombre_prolongations = (int) $nombre_prolongations;
     }
 }

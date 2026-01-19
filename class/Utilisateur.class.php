@@ -4,7 +4,7 @@
  * Classe représentant un personnel (bibliothécaire ou étudiant). 
  */
 declare(strict_types=1);
-class Utilisateur  
+class Utilisateur
 {
     protected int $id;
     protected string $nom;
@@ -30,6 +30,15 @@ class Utilisateur
     }
 
     // Getters et Setters
+
+    public function getUserId(): int
+    {
+        return $this->id;
+    }
+    public function setUserId(int $id): void
+    {
+        $this->id = $id;
+    }
 
     public function getId(): int
     {

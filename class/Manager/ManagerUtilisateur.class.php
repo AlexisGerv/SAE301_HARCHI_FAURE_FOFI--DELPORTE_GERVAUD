@@ -37,6 +37,9 @@ class ManagerUtilisateur
             'est_admin' => $user->getEstAdmin(),
             'peut_emprunter' => $user->getPeutEmprunter()
         ]);
+        $id = (int) $this->bdd->lastInsertId();
+        $user->setId($id);
+        return $id;
     }
 
     public function update(Utilisateur $user)
