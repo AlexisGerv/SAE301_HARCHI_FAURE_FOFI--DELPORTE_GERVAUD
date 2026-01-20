@@ -40,6 +40,9 @@
             </span>
         <?php endif; ?>
         </div>
+        
+      <!-- mettre le bouton Emprunter ici -->
+
 
         <div class="book-resume">
         <h3>Résumé</h3>

@@ -1,3 +1,4 @@
+footer style
 * {
   --primary-color: #a10e2f;
   --secondary-color: #ffffff;
@@ -19,7 +20,6 @@ footer {
   position: relative;
   overflow: hidden;
   pointer-events: none;
-
 }
 
 .wheel {
@@ -52,6 +52,7 @@ footer {
     transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
     opacity 0.4s ease,
     background 0.3s;
+  pointer-events: auto;
 }
 
 .item.active {
@@ -99,6 +100,7 @@ footer {
   transition:
     background 0.3s ease,
     transform 0.3s ease;
+  pointer-events: auto;
 }
 
 .burger span {
