@@ -80,4 +80,24 @@ class ManagerUtilisateur
         $stmt2->execute(['id' => $user->getId()]);
     }
 
+    public function verifierConnexion(string $email, string $passwordSaisi): ?Utilisateur 
+{
+    // 1. On récupère l'utilisateur par son email (unique)
+    $sql = "SELECT * FROM utilisateur WHERE mail_iut = :email";
+    $stmt = $this->bdd->prepare($sql);
+    $stmt->execute(['email' => $email]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // On vérifie si l'utilisateur existe
+    if ($row) {
+        // On utilise password_verify pour comparer le mot de passe saisi au hash stocké en BDD
+        if (password_verify($passwordSaisi, $row['mdp'])) {
+            // Si c'est correct, on retourne un nouvel objet Utilisateur avec les données de la BDD
+            return new Utilisateur($row);
+        }
+    }
+
+    // Si l'email n'existe pas ou si le mot de passe est faux, on retourne null
+    return null;
+}
 }

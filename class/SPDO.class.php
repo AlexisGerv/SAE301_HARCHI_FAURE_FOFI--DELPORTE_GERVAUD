@@ -11,7 +11,7 @@ class SPDO
   const DEFAULT_SQL_USER = 'root';
   const DEFAULT_SQL_HOST = 'localhost';
   const DEFAULT_SQL_PASS = '';
-  const DEFAULT_SQL_DTB = 'bibliothèque';
+  const DEFAULT_SQL_DTB = 'bibliotheque';
 
   private function __construct()
   {
