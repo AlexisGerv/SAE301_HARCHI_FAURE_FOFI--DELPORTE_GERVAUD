@@ -1,25 +1,12 @@
 <?php
-require_once __DIR__ . 'modeles/connect.php';
-require_once __DIR__ . '/../../autoload.php';
+// modeles/recherche_simple.php
 
-//  Gestion de la saisie utilisateur
-// On récupère 'recherche' depuis le formulaire du header (VueHeader.php)
-$recherche = isset($_POST['recherche']) ? trim(htmlspecialchars($_POST['recherche'])) : '';
+// La variable $bdd est déjà disponible car ce fichier est inclus via index.php
+$sql = "SELECT * FROM livre WHERE titre LIKE :mot OR _resume LIKE :mot";
+$stmt = $bdd->prepare($sql);
 
-// On initialise le tableau pour éviter les erreurs si aucune recherche n'est faite
-$resultats = [];
+// Exécution avec les jokers %
+$stmt->execute(['mot' => '%' . $recherche . '%']);
 
-//Traitement de la recherche simple
-if (!empty($recherche)) {
-    // Préparation de la requête SQL (Basée sur ton fichier bibliotheque.sql)
-    // On cherche dans 'titre' ou '_resume'
-    $sql = "SELECT * FROM Livre WHERE titre LIKE :mot OR _resume LIKE :mot";
-    $stmt = $pdo->prepare($sql);
-    
-    // Exécution avec les jokers % pour trouver le mot n'importe où
-    $stmt->execute(['mot' => '%' . $recherche . '%']);
-    
-    // Récupération des données sous forme de tableau associatif
-    $resultats = $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-?>
+// On remplit le tableau de résultats que la VueAccueil va parcourir
+$resultats = $stmt->fetchAll(PDO::FETCH_ASSOC);

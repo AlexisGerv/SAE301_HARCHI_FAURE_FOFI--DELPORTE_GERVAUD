@@ -1,11 +1,10 @@
 <?php
 // controleurs/recherche.php
 
-// Vérifications plus poussées (ex: longueur minimale)
+// On vérifie que le mot fait au moins 2 caractères pour éviter les recherches trop larges
 if (strlen($recherche) < 2) {
-    // Optionnel : définir un message d'erreur à afficher dans la vue
-    $erreur = "Le terme de recherche doit faire au moins 2 caractères.";
+    $erreur = "Le terme de recherche est trop court.";
 } else {
-    // Si tout est bon, on appelle le modèle pour exécuter la requête SQL
+    // Si c'est bon, on appelle le modèle (chemin relatif à index.php)
     require_once './modeles/recherche_simple.php';
 }

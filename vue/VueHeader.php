@@ -24,7 +24,7 @@
             <!-- Placeholder for logo if needed -->
         </div>
 
-        <form action="../../SAE301_HARCHI_FAURE_FOFI--DELPORTE_GERVAUD-1/index.php" method="post" class="search">
+        <form action="index.php" method="post" class="search">
             <div class="search-row">
                 <div class="search-box">
                     <input type="text" name="recherche" placeholder="Rechercher un livre, une revue..." value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
