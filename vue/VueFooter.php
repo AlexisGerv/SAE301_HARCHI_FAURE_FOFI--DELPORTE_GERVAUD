@@ -16,11 +16,11 @@
         <?php include './public/assets/icons/house.svg'; ?>
       </div>
 
-      <div class="item" data-page="/vue/VuePanier.php">
+      <div class="item" data-page="./vue/VuePanier.php">
         <?php include './public/assets/icons/cart.svg'; ?>
       </div>
 
-      <div class="item" data-page="/vue/VueContact.php">
+      <div class="item" data-page="./vue/VueContact.php">
         <?php include './public/assets/icons/pin.svg'; ?>
       </div>
 
