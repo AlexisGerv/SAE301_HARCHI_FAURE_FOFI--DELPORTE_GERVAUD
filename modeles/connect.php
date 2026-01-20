@@ -1,8 +1,9 @@
 <?php
 
+require_once __DIR__ . "/../autoload.php";
+
 try {
-    $bdd = new PDO("mysql:host=localhost;dbname=bibliotheque", "root", "");
-    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+    $bdd = SPDO::getInstance()->getPDO();
+} catch (Exception $e) {
+    echo "Erreur système : " . $e->getMessage();
 }
