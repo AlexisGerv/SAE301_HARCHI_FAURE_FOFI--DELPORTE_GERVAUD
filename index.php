@@ -30,6 +30,11 @@ include './vue/VueHeader.php';
             include './vue/VueConnexion.php';
             break;
         case 'livre':
+            $idLivre = $_GET['id'] ?? null;
+            if ($idLivre && is_numeric($idLivre)) {
+            $managerLivre = new ManagerLivre($bdd);
+            $livre = $managerLivre->getOne((int)$idLivre); // On récupère l'objet Livre
+        }
             include './vue/VueLivre.php';
             break;
         default:
