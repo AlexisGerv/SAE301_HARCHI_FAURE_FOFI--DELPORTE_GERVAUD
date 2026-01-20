@@ -11,6 +11,12 @@ footer {
   width: 100%;
   display: flex;
   justify-content: center;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+footer > * {
+  pointer-events: auto;
 }
 
 .wheel-container {
@@ -155,4 +161,13 @@ footer {
 
 .wheel-bg {
   transition: transform 0.5s ease;
+}
+
+.wheel-container {
+  pointer-events: none;
+}
+
+.burger,
+.item {
+  pointer-events: auto;
 }
