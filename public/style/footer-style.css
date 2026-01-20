@@ -88,7 +88,7 @@ footer {
   transform: translateX(-50%);
   width: 48px;
   height: 48px;
-  background: var(--secondary-color);
+  background: var(--primary-color);
   border-radius: 50%;
   border: none;
   cursor: pointer;
@@ -104,7 +104,7 @@ footer {
   left: 50%;
   width: 26px;
   height: 2px;
-  background: var(--primary-color);
+  background: var(--secondary-color);
   transform: translateX(-50%);
   transition:
     transform 0.35s ease,
@@ -123,11 +123,11 @@ footer {
 }
 
 .burger.open {
-  background: var(--primary-color);
+  background: var(--secondary-color);
 }
 
 .burger.open span {
-  background: var(--secondary-color);
+  background: var(--primary-color);
 }
 
 .burger.open span:nth-child(1) {
