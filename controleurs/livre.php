@@ -23,6 +23,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 }
 
 // Inclusion des vues
-include 'vue/VueHeader.php';
-include 'vue/VueLivre.php';
-include 'vue/VueFooter.php';
+include __DIR__ . '../vue/VueHeader.php';
+include __DIR__ . '../vue/VueLivre.php';
+include __DIR__ . '../vue/VueFooter.php';
