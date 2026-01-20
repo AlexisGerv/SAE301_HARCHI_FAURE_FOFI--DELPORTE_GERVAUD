@@ -13,7 +13,7 @@
         <!-- Colonne Gauche : Image -->
         <div class="book-cover-column">
         <?php
-        $imagePath = "./public/images/" . htmlspecialchars($livre->getImageCouverture());
+        $imagePath = "./public/assets/livre/" . htmlspecialchars($livre->getImageCouverture());
         // Fallback si l'image n'est pas trouvée (optionnel, pour l'UX)
         if (!file_exists($imagePath) && !empty($livre->getImageCouverture())) {
             // On garde le chemin généré même s'il n'existe pas sur le disque pour le moment, 
