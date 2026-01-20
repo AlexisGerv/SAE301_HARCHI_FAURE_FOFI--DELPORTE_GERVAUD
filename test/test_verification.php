@@ -1,13 +1,8 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+require_once '../autoload.php';
 
-require_once '../class/Livre.class.php';
-require_once '../class/Etudiant.class.php';
-require_once '../class/Emprunt.class.php';
-require_once '../class/Bibliothecaire.class.php';
-require_once '../class/Suggestion.class.php';
-require_once '../class/Avis.class.php';
 
 echo "Test des classes en cours...\n";
 
