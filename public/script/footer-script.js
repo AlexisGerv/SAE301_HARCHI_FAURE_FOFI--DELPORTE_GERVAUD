@@ -1,15 +1,23 @@
 const items = Array.from(document.querySelectorAll(".item"));
+const container = document.querySelector(".wheel-container");
+const burger = document.querySelector(".burger");
 
 const count = items.length;
 const centerIndex = Math.floor(count / 2);
 
-const radius = 180;
-const step = Math.PI / 6;
+const step = Math.PI / 7;
 
 let currentPage = null;
 let isRotating = false;
+let menuOpen = false;
+
+function getRadius() {
+  const vmin = Math.min(window.innerWidth, window.innerHeight);
+  return vmin * 0.4;
+}
 
 function render() {
+  const radius = getRadius();
   items.forEach((item, i) => {
     const offset = i - centerIndex;
     const angle = offset * step;
@@ -42,7 +50,7 @@ function loadPage(url) {
 }
 
 function rotateToItem(clicked) {
-  if (isRotating) return;
+  if (isRotating || !menuOpen) return;
 
   const index = items.indexOf(clicked);
   let shift = index - centerIndex;
@@ -82,8 +90,34 @@ function rotateToItem(clicked) {
   stepRotate();
 }
 
+function openMenu() {
+  container.classList.remove("menu-closed");
+  burger.classList.add("open");
+  burger.setAttribute("aria-expanded", "true");
+  menuOpen = true;
+  render();
+}
+
+function closeMenu() {
+  burger.classList.remove("open");
+  burger.setAttribute("aria-expanded", "false");
+  menuOpen = false;
+
+  items.forEach((item) => {
+    item.style.transform = "";
+  });
+
+  container.classList.add("menu-closed");
+}
+
+burger.addEventListener("click", () => {
+  menuOpen ? closeMenu() : openMenu();
+});
+
 items.forEach((item) => {
   item.addEventListener("click", () => rotateToItem(item));
 });
 
-render();
+window.addEventListener("resize", () => {
+  if (menuOpen) render();
+});
