@@ -11,7 +11,7 @@
         // On parcourt chaque ligne récupérée dans la table 'Livre'
         foreach ($resultats as $livre): ?>
             <div class="livres_trouves">
-                <h3><?= htmlspecialchars($livre['titre']) ?></h3>
+                <a href="livre.php?id=<?= htmlspecialchars($livre['id']) ?>"><h3><?= htmlspecialchars($livre['titre']) ?></h3></a>
 
                 <p><?= htmlspecialchars($livre['_resume']) ?></p>
             </div>
