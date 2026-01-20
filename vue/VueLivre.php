@@ -69,7 +69,7 @@
 
         <!-- Bouton d'action (exemple) -->
         <div class="book-actions">
-        <!-- Tu pourras ajouter ici le bouton "Emprunter" ou "Réserver" plus tard -->
+        <!-- "Emprunter" ou "Réserver" -->
         </div>
         </div>
         </div>
