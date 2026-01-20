@@ -29,7 +29,7 @@
             <!-- Placeholder for logo if needed -->
         </div>
         <nav>
-            <a href="index.php">Accueil</a>
+            <a href="../index.php">Accueil</a>
             <?php if (isset($_SESSION['user'])): ?>
             <span>Bonjour <?= htmlspecialchars($_SESSION['user']->getPrenom()) ?></span>
             <a href="controleurs/deconnexion.php">Déconnexion</a>

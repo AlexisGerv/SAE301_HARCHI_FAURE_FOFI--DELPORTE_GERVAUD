@@ -1,11 +1,11 @@
 <?php
-session_start();
 require_once __DIR__ . '/../autoload.php';
+session_start();
 require_once __DIR__ . '/../modeles/connect.php';
-require_once __DIR__ . '/../modeles/connexion.php'; 
+require_once __DIR__ . '/../modeles/connexion.php';
 
 if (!empty($_POST['email']) && !empty($_POST['password'])) {
-    
+
     // On appelle la fonction du modèle
     $user = tenterConnexion($bdd, $_POST['email'], $_POST['password']);
 
