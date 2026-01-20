@@ -18,6 +18,8 @@ footer {
   height: 55vh;
   position: relative;
   overflow: hidden;
+  pointer-events: none;
+
 }
 
 .wheel {
