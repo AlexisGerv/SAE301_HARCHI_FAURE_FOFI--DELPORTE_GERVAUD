@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="./public/style/accueil-style.css">
+
 <div class="résultats-recherche">
     <?php
     // On vérifie si le tableau $resultats (rempli par le managerLivre) contient des données
@@ -11,7 +11,7 @@
         // On parcourt chaque ligne récupérée dans la table 'Livre'
         foreach ($resultats as $livre): ?>
             <div class="livres_trouves">
-                <a href="livre.php?id=<?= htmlspecialchars($livre['id']) ?>"><h3><?= htmlspecialchars($livre['titre']) ?></h3></a>
+                <a href="./controleurs/livre.php?id=<?= htmlspecialchars($livre['id']) ?>"><h3><?= htmlspecialchars($livre['titre']) ?></h3></a>
 
                 <p><?= htmlspecialchars($livre['_resume']) ?></p>
             </div>

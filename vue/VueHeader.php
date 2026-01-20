@@ -15,7 +15,12 @@
         referrerpolicy="no-referrer" />
 
     <!-- Styles -->
-    <link rel="stylesheet" href="./public/style/header-style.css">
+    <link rel="stylesheet" href="../public/style/header-style.css">
+    <link rel="stylesheet" href="../public/style/livre-style.css">
+    <link rel="stylesheet" href="../public/style/accueil-style.css">
+    <link rel="stylesheet" href="../public/style/footer-style.css">
+    <script src="../public/script/footer-script.js" defer></script>
+
 </head>
 
 <body>
