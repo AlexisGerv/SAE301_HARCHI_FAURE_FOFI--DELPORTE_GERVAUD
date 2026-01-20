@@ -60,33 +60,62 @@ class ManagerEmprunt
 
     public function getOne(int $id): ?Emprunt
     {
-        $sql = "SELECT * FROM Emprunt WHERE id = :id";
+        $sql = "SELECT e.*, u.nom as nom_emprunteur, u.prenom as prenom_emprunteur, l.titre as titre_livre 
+                FROM Emprunt e
+                JOIN Utilisateur u ON e.utilisateur_id = u.id
+                JOIN Livre l ON e.livre_id = l.id
+                WHERE e.id = :id";
         $stmt = $this->bdd->prepare($sql);
         $stmt->execute(['id' => $id]);
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return $data ? new Emprunt($data) : null;
+        if ($data) {
+            $emprunt = new Emprunt($data);
+            $emprunt->setNomEmprunteur($data['nom_emprunteur']);
+            $emprunt->setPrenomEmprunteur($data['prenom_emprunteur']);
+            $emprunt->setTitreLivre($data['titre_livre']);
+            return $emprunt;
+        }
+
+        return null;
     }
 
     public function getAll(): array
     {
-        $sql = "SELECT * FROM Emprunt";
+        $sql = "SELECT e.*, u.nom as nom_emprunteur, u.prenom as prenom_emprunteur, l.titre as titre_livre 
+                FROM Emprunt e
+                JOIN Utilisateur u ON e.utilisateur_id = u.id
+                JOIN Livre l ON e.livre_id = l.id
+                ORDER BY e.date_emprunt DESC";
         $stmt = $this->bdd->query($sql);
         $emprunts = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $emprunts[] = new Emprunt($row);
+            $emprunt = new Emprunt($row);
+            $emprunt->setNomEmprunteur($row['nom_emprunteur']);
+            $emprunt->setPrenomEmprunteur($row['prenom_emprunteur']);
+            $emprunt->setTitreLivre($row['titre_livre']);
+            $emprunts[] = $emprunt;
         }
         return $emprunts;
     }
 
     public function getAllByEtudiant(int $etudiantId): array
     {
-        $sql = "SELECT * FROM Emprunt WHERE utilisateur_id = :etudiant_id";
+        $sql = "SELECT e.*, u.nom as nom_emprunteur, u.prenom as prenom_emprunteur, l.titre as titre_livre 
+                FROM Emprunt e
+                JOIN Utilisateur u ON e.utilisateur_id = u.id
+                JOIN Livre l ON e.livre_id = l.id
+                WHERE e.utilisateur_id = :etudiant_id
+                ORDER BY e.date_emprunt DESC";
         $stmt = $this->bdd->prepare($sql);
         $stmt->execute(['etudiant_id' => $etudiantId]);
         $emprunts = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $emprunts[] = new Emprunt($row);
+            $emprunt = new Emprunt($row);
+            $emprunt->setNomEmprunteur($row['nom_emprunteur']);
+            $emprunt->setPrenomEmprunteur($row['prenom_emprunteur']);
+            $emprunt->setTitreLivre($row['titre_livre']);
+            $emprunts[] = $emprunt;
         }
         return $emprunts;
     }

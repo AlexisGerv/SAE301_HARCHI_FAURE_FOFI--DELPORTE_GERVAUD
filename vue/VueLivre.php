@@ -30,7 +30,7 @@
                 <h2 class="book-author">Par <?= htmlspecialchars($livre->getAuteur()) ?></h2>
 
                 <div class="book-status">
-                    <?php if ($livre->getEstDisponible()): ?>
+                    <?php if ($livre->getNbExemplairesDisponible() > 0): ?>
                         <span class="status-pill status-available">
                             <i class="fa-solid fa-check-circle"></i> Disponible
                         </span>
@@ -96,3 +96,19 @@
         </div>
     <?php endif; ?>
 </div>
+
+<script>
+    // Check for success parameter in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('success')) {
+        alert("📚 Livre emprunté avec succès ! \n\nVous pouvez le retrouver dans votre espace personnel ou le rendre à la bibliothèque.");
+
+        // Clean URL
+        const newUrl = window.location.pathname + window.location.search.replace('&success=1', '').replace('?success=1', '');
+        window.history.replaceState({}, document.title, newUrl);
+    }
+
+    if (urlParams.get('error') === 'unavailable') {
+        alert("❌ Désolé, ce livre n'est plus disponible.");
+    }
+</script>
