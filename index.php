@@ -6,7 +6,18 @@ require_once './modeles/connect.php';
 // On récupère la page demandée (par défaut 'accueil')
 $page = isset($_GET['page']) ? $_GET['page'] : 'accueil';
 
+$recherche = isset($_POST['recherche']) ? trim(htmlspecialchars($_POST['recherche'])) : '';
+
+// 2. Initialisation pour la VueAccueil.php
+$resultats = [];
+
+// 3. Si une recherche est faite, on passe par le contrôleur dédié
+if (!empty($recherche)) {
+    require_once './controleurs/recherche.php';
+}
+
 include './vue/VueHeader.php';
+
 ?>
 
 <main id="content">
