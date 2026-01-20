@@ -3,6 +3,8 @@ require_once './autoload.php';
 require_once './modeles/connect.php';
 session_start();
 
+$rootPath = './';
+
 // On récupère la page demandée (par défaut 'accueil')
 $page = isset($_GET['page']) ? $_GET['page'] : 'accueil';
 

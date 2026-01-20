@@ -1,11 +1,13 @@
-
 <?php
 /**
  * Contrôleur de la page de détail d'un livre
  */
 
 require_once __DIR__ . '/../autoload.php';
+session_start();
 require_once __DIR__ . '/../modeles/connect.php';
+
+$rootPath = '../';
 
 $titrePage = "Détail du livre";
 $livre = null;

@@ -8,18 +8,16 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Icons -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Styles -->
-    <link rel="stylesheet" href="public/style/header-style.css">
-    <link rel="stylesheet" href="public/style/livre-style.css">
-    <link rel="stylesheet" href="public/style/accueil-style.css">
-    <link rel="stylesheet" href="public/style/footer-style.css">
-    <script src="public/script/footer-script.js" defer></script>
+    <link rel="stylesheet" href="<?= $rootPath ?>public/style/header-style.css">
+    <link rel="stylesheet" href="<?= $rootPath ?>public/style/livre-style.css">
+    <link rel="stylesheet" href="<?= $rootPath ?>public/style/accueil-style.css">
+    <link rel="stylesheet" href="<?= $rootPath ?>public/style/footer-style.css">
+    <script src="<?= $rootPath ?>public/script/footer-script.js" defer></script>
 
 </head>
 
@@ -29,19 +27,20 @@
             <!-- Placeholder for logo if needed -->
         </div>
         <nav>
-            <a href="../index.php">Accueil</a>
+            <a href="<?= $rootPath ?>index.php">Accueil</a>
             <?php if (isset($_SESSION['user'])): ?>
                 <span>Bonjour <?= htmlspecialchars($_SESSION['user']->getPrenom()) ?></span>
-                <a href="controleurs/deconnexion.php">Déconnexion</a>
+                <a href="<?= $rootPath ?>controleurs/deconnexion.php">Déconnexion</a>
             <?php else: ?>
-                <a href="index.php?page=connexion">Connexion</a>
+                <a href="<?= $rootPath ?>index.php?page=connexion">Connexion</a>
             <?php endif; ?>
         </nav>
 
-        <form action="index.php" method="post" class="search">
+        <form action="<?= $rootPath ?>index.php" method="post" class="search">
             <div class="search-row">
                 <div class="search-box">
-                    <input type="text" name="recherche" placeholder="Rechercher un livre, une revue..." value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
+                    <input type="text" name="recherche" placeholder="Rechercher un livre, une revue..."
+                        value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
                     <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
 
