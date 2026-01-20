@@ -13,19 +13,6 @@ footer {
   justify-content: center;
 }
 
-.wheel-bg {
-  position: absolute;
-  bottom: -60%;
-  left: 50%;
-  width: 120vw;
-  height: 120vw;
-  transform: translateX(-50%);
-  background: var(--primary-color);
-  border-radius: 50%;
-  box-shadow: inset 0 -40px 60px rgba(0, 0, 0, 0.15),
-    0 -10px 40px rgba(0, 0, 0, 0.2);
-}
-
 .wheel-container {
   width: 100vw;
   height: 55vh;
@@ -57,8 +44,12 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translate(-50%, -50%);
-  transition: transform 0.5s ease, background 0.3s;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transition:
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.4s ease,
+    background 0.3s;
 }
 
 .item.active {
@@ -72,6 +63,7 @@ footer {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
 .item svg {
   color: var(--secondary-color);
   transition: color 0.3s;
@@ -87,4 +79,77 @@ footer {
 
 .item svg *[stroke="none"] {
   stroke: none !important;
+}
+
+.burger {
+  position: absolute;
+  left: 50%;
+  bottom: 2%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
+  background: var(--secondary-color);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.burger span {
+  position: absolute;
+  left: 50%;
+  width: 26px;
+  height: 2px;
+  background: var(--primary-color);
+  transform: translateX(-50%);
+  transition:
+    transform 0.35s ease,
+    opacity 0.25s ease,
+    background 0.3s ease;
+}
+
+.burger span:nth-child(1) {
+  top: 12px;
+}
+.burger span:nth-child(2) {
+  top: 20px;
+}
+.burger span:nth-child(3) {
+  top: 28px;
+}
+
+.burger.open {
+  background: var(--primary-color);
+}
+
+.burger.open span {
+  background: var(--secondary-color);
+}
+
+.burger.open span:nth-child(1) {
+  transform: translate(-50%, 8px) rotate(45deg);
+}
+.burger.open span:nth-child(2) {
+  opacity: 0;
+}
+.burger.open span:nth-child(3) {
+  transform: translate(-50%, -8px) rotate(-45deg);
+}
+
+.wheel-container.menu-closed .item {
+  transform: translate(-50%, -50%) scale(0.1);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wheel-container.menu-closed .wheel-bg {
+  transform: translateX(-50%) scale(0);
+}
+
+.wheel-bg {
+  transition: transform 0.5s ease;
 }
