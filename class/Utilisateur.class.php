@@ -89,17 +89,17 @@ class Utilisateur
     {
         return $this->est_admin;
     }
-    public function setEstAdmin(bool $est_admin): void
+    public function setEstAdmin(bool|int $est_admin): void
     {
-        $this->est_admin = $est_admin;
+        $this->est_admin = (bool) $est_admin;
     }
 
     public function getPeutEmprunter(): bool
     {
         return $this->peut_emprunter;
     }
-    public function setPeutEmprunter(bool $peut_emprunter): void
+    public function setPeutEmprunter(bool|int $peut_emprunter): void
     {
-        $this->peut_emprunter = $peut_emprunter;
+        $this->peut_emprunter = (bool) $peut_emprunter;
     }
 }
