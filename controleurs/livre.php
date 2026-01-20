@@ -3,8 +3,8 @@
  * Contrôleur de la page de détail d'un livre
  */
 
-require_once __DIR__ . '/../autoload.php';
-require_once __DIR__ . '/../modeles/connect.php';
+require_once __DIR__ . '../autoload.php';
+require_once __DIR__ . '../modeles/connect.php';
 
 $titrePage = "Détail du livre";
 $livre = null;
