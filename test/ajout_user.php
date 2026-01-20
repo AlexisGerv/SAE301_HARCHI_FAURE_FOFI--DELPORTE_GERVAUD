@@ -47,12 +47,21 @@ $mdp_clair="password";
 //hachage du mot de passe
 $mdp_hache=password_hash($mdp_clair, PASSWORD_DEFAULT);
 
+// $donnees = [
+//     'nom' => 'HARCHI',
+//     'prenom' => 'Faure',
+//     'mail_iut' => 'faure.harchi@iut-dijon.u-bourgogne.fr',
+//     'mdp' => $mdp_hache, 
+//     'est_admin' => false,    // 1 pour bibliothécaire
+//     'peut_emprunter' => true
+// ];
+
 $donnees = [
-    'nom' => 'HARCHI',
-    'prenom' => 'Faure',
-    'mail_iut' => 'faure.harchi@iut-dijon.u-bourgogne.fr',
+    'nom' => 'Meme',
+    'prenom' => 'Matie',
+    'mail_iut' => 'mati.meme@iut-dijon.u-bourgogne.fr',
     'mdp' => $mdp_hache, 
-    'est_admin' => false,    // 1 pour bibliothécaire
+    'est_admin' => true,    // 1 pour bibliothécaire
     'peut_emprunter' => true
 ];
 
