@@ -40,6 +40,18 @@ include './vue/VueHeader.php';
         case 'admin':
             include './controleurs/admin.php';
             break;
+        case 'settings':
+            include './vue/VueSettings.php';
+            break;
+        case 'profil':
+            include './vue/VueProfil.php';
+            break;
+        case 'contact':
+            include './vue/VueContact.php';
+            break;
+        case 'panier':
+            include './vue/VuePanier.php';
+            break;
         default:
             include './vue/VueAccueil.php';
             break;
