@@ -1,6 +1,11 @@
 <footer>
-  <div class="wheel-container">
-    <div class="wheel-bg"></div>
+  <div class="wheel-container menu-closed">
+
+    <button class="burger" aria-label="Menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
     <div class="wheel">
 
