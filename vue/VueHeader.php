@@ -23,6 +23,15 @@
         <div class="logo-container">
             <!-- Placeholder for logo if needed -->
         </div>
+        <nav>
+            <a href="index.php">Accueil</a>
+            <?php if (isset($_SESSION['user'])): ?>
+            <span>Bonjour <?= htmlspecialchars($_SESSION['user']->getPrenom()) ?></span>
+            <a href="controleurs/deconnexion.php">Déconnexion</a>
+            <?php else: ?>
+            <a href="index.php?page=connexion">Connexion</a>
+            <?php endif; ?>
+        </nav>
 
         <form action="index.php" method="post" class="search">
             <div class="search-row">
