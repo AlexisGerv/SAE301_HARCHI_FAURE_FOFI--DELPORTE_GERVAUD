@@ -113,13 +113,13 @@ footer {
 }
 
 .burger span:nth-child(1) {
-  top: 12px;
+  top: 15px;
 }
 .burger span:nth-child(2) {
-  top: 20px;
+  top: 23px;
 }
 .burger span:nth-child(3) {
-  top: 28px;
+  top: 31px;
 }
 
 .burger.open {
