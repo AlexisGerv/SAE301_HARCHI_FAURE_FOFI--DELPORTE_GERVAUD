@@ -9,8 +9,11 @@
 
 class Etudiant extends Utilisateur
 {
+    /** @var string $num_etudiant Identifiant unique étudiant */
     protected string $num_etudiant;
-    protected string $formation; //mmi,gaco,etc...
+
+    /** @var string $formation Code de la formation (MMI, GACO, etc.) */
+    protected string $formation;
 
     public function __construct(array $donnees = [])
     {

@@ -1,11 +1,16 @@
+/**
+ * Script de gestion du menu carrousel (Footer).
+ * Gère l'animation de rotation et la navigation.
+ */
+
 const items = Array.from(document.querySelectorAll(".item"));
 const container = document.querySelector(".wheel-container");
 const burger = document.querySelector(".burger");
 
 const count = items.length;
-const centerIndex = Math.floor(count / 2);
+const centerIndex = Math.floor(count / 2); // L'élément central actif
 
-const step = Math.PI / 7;
+const step = Math.PI / 7; // Espacement angulaire entre les items
 
 let currentPage = null;
 let isRotating = false;

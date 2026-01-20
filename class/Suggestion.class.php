@@ -8,8 +8,12 @@ class Suggestion
 {
     private string $titre;
     private string $auteur;
+
+    /** @var int $nombre_votes Compteur de votes pour cette suggestion */
     private int $nombre_votes;
-    private string $statut; // ex: 'en_attente', 'validee', 'refusee'
+
+    /** @var string $statut État de la demande (en_attente, validee, refusee) */
+    private string $statut;
 
     public function __construct(array $donnees = [])
     {

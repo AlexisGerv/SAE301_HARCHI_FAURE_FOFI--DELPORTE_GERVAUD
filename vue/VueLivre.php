@@ -1,4 +1,11 @@
 <div class="container book-details-page">
+    <?php
+    /**
+     * Vue affichant le détail d'un livre.
+     * Cette vue est incluse par index.php?page=livre
+     */
+    ?>
+
     <?php if (isset($error)): ?>
         <div class="error-message">
             <h1>Oups !</h1>
@@ -9,26 +16,21 @@
         </div>
     <?php elseif ($livre): ?>
         <div class="book-container">
-            <!-- Colonne Gauche : Image -->
+            <!-- Colonne Gauche : Image de couverture -->
             <div class="book-cover-column">
                 <?php
-                $imagePath = "../public/assets/livre/" . htmlspecialchars($livre->getImageCouverture());
-                // Fallback si l'image n'est pas trouvée (optionnel, pour l'UX)
-                if (!file_exists($imagePath) && !empty($livre->getImageCouverture())) {
-                    // On garde le chemin généré même s'il n'existe pas sur le disque pour le moment, 
-                    // car les images peuvent être sur un CDN ou autre, mais ici on suppose local.
-                    // On pourrait mettre une image par défaut ici.
-                }
+                $imagePath = "./public/assets/livre/" . htmlspecialchars($livre->getImageCouverture());
                 ?>
                 <img src="<?= $imagePath ?>" alt="Couverture de <?= htmlspecialchars($livre->getTitre()) ?>"
                     class="cover-image">
             </div>
 
-            <!-- Colonne Droite : Informations -->
+            <!-- Colonne Droite : Informations détaillées -->
             <div class="book-info-column">
                 <h1 class="book-title"><?= htmlspecialchars($livre->getTitre()) ?></h1>
                 <h2 class="book-author">Par <?= htmlspecialchars($livre->getAuteur()) ?></h2>
 
+                <!-- Statut de disponibilité (Dynamique basé sur le stock) -->
                 <div class="book-status">
                     <?php if ($livre->getNbExemplairesDisponible() > 0): ?>
                         <span class="status-pill status-available">
@@ -44,10 +46,11 @@
                     </span>
                 </div>
 
-                <!-- Bouton Emprunter -->
+                <!-- Section Bouton Emprunter -->
                 <?php if (isset($_SESSION['user']) && $_SESSION['user']->getPeutEmprunter()): ?>
                     <?php if ($livre->getNbExemplairesDisponible() > 0): ?>
-                        <form action="emprunt.php" method="post" style="margin-top: 15px;">
+                        <!-- Formulaire d'emprunt : POST vers controleurs/emprunt.php -->
+                        <form action="controleurs/emprunt.php" method="post" style="margin-top: 15px;">
                             <input type="hidden" name="livre_id" value="<?= $livre->getId() ?>">
                             <button type="submit" class="btn-primary" style="width: 100%; max-width: 200px;">Emprunter ce
                                 livre</button>
@@ -56,7 +59,7 @@
                         <p style="color: red; margin-top: 15px;">Ce livre n'est plus disponible pour le moment.</p>
                     <?php endif; ?>
                 <?php elseif (!isset($_SESSION['user'])): ?>
-                    <p style="margin-top: 15px;"><a href="../index.php?page=connexion"
+                    <p style="margin-top: 15px;"><a href="index.php?page=connexion"
                             style="color: #a10e2f; text-decoration: underline;">Connectez-vous</a> pour emprunter ce livre.</p>
                 <?php endif; ?>
 
@@ -66,6 +69,7 @@
                     <p><?= nl2br(htmlspecialchars($livre->getResume())) ?></p>
                 </div>
 
+                <!-- Métadonnées du livre -->
                 <div class="book-meta-details">
                     <div class="meta-item">
                         <strong>Éditeur :</strong> <?= htmlspecialchars($livre->getEditeur()) ?>
@@ -87,27 +91,26 @@
                         <strong>Collection :</strong> <?= htmlspecialchars($livre->getCollection()) ?>
                     </div>
                 </div>
-
-                <!-- Bouton d'action (exemple) -->
-                <div class="book-actions">
-                    <!-- "Emprunter" ou "Réserver" -->
-                </div>
             </div>
         </div>
     <?php endif; ?>
 </div>
 
+<!-- Script pour gérer les feedbacks (Popups) -->
 <script>
-    // Check for success parameter in URL
+    // Vérifie s'il y a un paramètre 'success' ou 'error' dans l'URL
     const urlParams = new URLSearchParams(window.location.search);
+
+    // Cas : Emprunt réussi
     if (urlParams.has('success')) {
         alert("📚 Livre emprunté avec succès ! \n\nVous pouvez le retrouver dans votre espace personnel ou le rendre à la bibliothèque.");
 
-        // Clean URL
+        // Nettoyage de l'URL pour ne pas réafficher le popup au rafraîchissement
         const newUrl = window.location.pathname + window.location.search.replace('&success=1', '').replace('?success=1', '');
         window.history.replaceState({}, document.title, newUrl);
     }
 
+    // Cas : Livre indisponible
     if (urlParams.get('error') === 'unavailable') {
         alert("❌ Désolé, ce livre n'est plus disponible.");
     }

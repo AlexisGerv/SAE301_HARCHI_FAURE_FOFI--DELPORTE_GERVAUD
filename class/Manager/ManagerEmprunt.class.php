@@ -2,6 +2,10 @@
 require_once __DIR__ . '/../../modeles/connect.php';
 require_once __DIR__ . '/../../autoload.php';
 
+/**
+ * Manager pour la gestion des emprunts en base de données.
+ * Permet d'ajouter, modifier, supprimer et récupérer les emprunts.
+ */
 class ManagerEmprunt
 {
     private PDO $bdd;
@@ -11,9 +15,15 @@ class ManagerEmprunt
         $this->bdd = $bdd;
     }
 
+    /**
+     * Ajoute un nouvel emprunt en base de données.
+     * Note: Les champs denormalisés (nom_emprunteur, etc.) ne sont pas insérés ici car non présents en BDD,
+     * ils sont reconstitués à la lecture via des JOIN.
+     * 
+     * @param Emprunt $emprunt L'objet emprunt à persister.
+     */
     public function add(Emprunt $emprunt): void
     {
-
         $sql = "INSERT INTO Emprunt (utilisateur_id, livre_id, date_emprunt, date_retour_prevue, est_en_retard, nombre_prolongations) 
                 VALUES (:utilisateur_id, :livre_id, :date_emprunt, :date_retour_prevue, :est_en_retard, :nombre_prolongations)";
         $stmt = $this->bdd->prepare($sql);
@@ -29,6 +39,10 @@ class ManagerEmprunt
         $emprunt->setId((int) $this->bdd->lastInsertId());
     }
 
+    /**
+     * Met à jour un emprunt existant.
+     * Utile pour prolonger une date ou marquer comme en retard.
+     */
     public function update(Emprunt $emprunt): void
     {
         $sql = "UPDATE Emprunt SET 
@@ -51,6 +65,9 @@ class ManagerEmprunt
         ]);
     }
 
+    /**
+     * Supprime un emprunt (généralement quand le livre est rendu).
+     */
     public function delete(Emprunt $emprunt): void
     {
         $sql = "DELETE FROM Emprunt WHERE id = :id";
@@ -58,6 +75,10 @@ class ManagerEmprunt
         $stmt->execute(['id' => $emprunt->getId()]);
     }
 
+    /**
+     * Récupère un emprunt par son ID.
+     * Effectue des JOIN avec Utilisateur et Livre pour hydrater les infos associées (noms, titres).
+     */
     public function getOne(int $id): ?Emprunt
     {
         $sql = "SELECT e.*, u.nom as nom_emprunteur, u.prenom as prenom_emprunteur, l.titre as titre_livre 
@@ -80,6 +101,10 @@ class ManagerEmprunt
         return null;
     }
 
+    /**
+     * Récupère tous les emprunts (pour l'admin).
+     * Trie par date d'emprunt décroissante.
+     */
     public function getAll(): array
     {
         $sql = "SELECT e.*, u.nom as nom_emprunteur, u.prenom as prenom_emprunteur, l.titre as titre_livre 
@@ -99,6 +124,9 @@ class ManagerEmprunt
         return $emprunts;
     }
 
+    /**
+     * Récupère les emprunts d'un étudiant spécifique (pour son profil).
+     */
     public function getAllByEtudiant(int $etudiantId): array
     {
         $sql = "SELECT e.*, u.nom as nom_emprunteur, u.prenom as prenom_emprunteur, l.titre as titre_livre 

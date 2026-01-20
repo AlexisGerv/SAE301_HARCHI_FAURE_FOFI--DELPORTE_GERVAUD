@@ -15,20 +15,21 @@ class Livre
     private DateTime $date_publication;
     private string $_resume;
     private string $isbn;
-    private string $categorie;
+    private string $categorie; // Ex: Informatique, Science...
     private int $nb_exemplaires_total;
     private int $nb_exemplaires_disponible;
-    private bool $est_disponible;
-    private string $format;
+    private bool $est_disponible; // Statut global
+    private string $format; // Broché, Relié, Ebook
     private string $editeur;
-    private string $contributeur; //jsp ce que c'est mais c'est sur le site de la bibliothèque
+    private string $contributeur;
 
+    /** @var array Liste des mots-clés associés */
     private array $mots_cles;
 
-    private string $image_couverture;
-    private string $type_support; // 'papier' ou 'numerique'
+    private string $image_couverture; // Nom du fichier image
+    private string $type_support; // 'Papier' ou 'Numérique'
     private $_collection;
-    private $sudoc;
+    private $sudoc; // Identifiant SUDOC
     private $nb_pages;
 
     public function __construct(array $donnees = [])

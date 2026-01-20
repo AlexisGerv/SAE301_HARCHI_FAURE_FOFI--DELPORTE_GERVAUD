@@ -1,5 +1,12 @@
 <?php
-// modeles/recherche_simple.php
+/**
+ * Modèle de recherche simple.
+ * Effectue la requête SQL de recherche sur les titres et résumés.
+ * 
+ * Variables attendues :
+ * - $bdd : Instance PDO
+ * - $recherche : Terme de recherche
+ */
 
 // La variable $bdd est déjà disponible car ce fichier est inclus via index.php
 $sql = "SELECT * FROM livre WHERE titre LIKE :mot OR _resume LIKE :mot";

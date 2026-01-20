@@ -6,9 +6,16 @@
 declare(strict_types=1);
 class Avis
 {
-    private int $note; // sur 5 par exemple
+    /** @var int $note Note sur 5 */
+    private int $note;
+
+    /** @var string $commentaire Texte de l'avis */
     private string $commentaire;
+
+    /** @var string $etudiant_id ID de l'étudiant (Devrait être un int ?) */
     private string $etudiant_id;
+
+    /** @var int $livre_id ID du livre concerné */
     private int $livre_id;
 
     public function __construct(array $donnees = [])

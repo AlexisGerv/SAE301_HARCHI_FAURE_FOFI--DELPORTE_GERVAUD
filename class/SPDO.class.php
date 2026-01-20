@@ -2,12 +2,21 @@
 
 require_once __DIR__ . '/../modeles/connect.php';
 
+/**
+ * Classe SPDO (Singleton PDO).
+ * 
+ * Implémente le pattern Singleton pour garantir une unique connexion à la base de données
+ * partagée dans toute l'application.
+ */
 class SPDO
 {
+  /** @var PDO|null Instance PDO native */
   private ?PDO $PDOInstance = null;
+
+  /** @var SPDO|null Instance unique de la classe wrapper */
   private static ?SPDO $instance = null;
 
-  // Tes identifiants adaptés (ne pas copier ceux du tuto)
+  // Configuration de la Base de Données
   const DEFAULT_SQL_USER = 'root';
   const DEFAULT_SQL_HOST = 'localhost';
   const DEFAULT_SQL_PASS = '';

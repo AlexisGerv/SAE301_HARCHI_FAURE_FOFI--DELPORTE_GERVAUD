@@ -1,14 +1,23 @@
 <main class="admin-dashboard">
+    <?php
+    /**
+     * Vue du Tableau de Bord Administrateur.
+     * Cette vue affiche :
+     * 1. La liste des emprunts en cours avec options de prolongation et de suppression.
+     * 2. Le formulaire d'ajout d'un nouveau livre.
+     */
+    ?>
     <div class="container">
         <h1>Tableau de bord Bibliothécaire</h1>
 
+        <!-- Affichage des messages flash (succès ou erreur) -->
         <?php if (!empty($message)): ?>
             <div class="alert">
                 <?= htmlspecialchars($message) ?>
             </div>
         <?php endif; ?>
 
-        <!-- Section 1: Emprunts en cours -->
+        <!-- Section 1 : Gestion des Emprunts -->
         <section class="admin-section">
             <h2>Emprunts en cours</h2>
             <div class="table-responsive">
@@ -26,12 +35,13 @@
                     <tbody>
                         <?php if (empty($emprunts)): ?>
                             <tr>
-                                <td colspan="5">Aucun emprunt en cours.</td>
+                                <td colspan="6">Aucun emprunt en cours.</td>
                             </tr>
                         <?php else: ?>
                             <?php foreach ($emprunts as $emprunt): ?>
                                 <tr>
                                     <td>
+                                        <!-- Nom et Prénom récupérés via JOIN SQL -->
                                         <?= htmlspecialchars($emprunt->getNomEmprunteur() . ' ' . $emprunt->getPrenomEmprunteur()) ?>
                                     </td>
                                     <td>
@@ -45,6 +55,7 @@
                                         <?= $emprunt->getDateRetourPrevue()->format('d/m/Y') ?>
                                     </td>
                                     <td>
+                                        <!-- Statut de retard calculé -->
                                         <?php if ($emprunt->isEstEnRetard()): ?>
                                             <span style="color:red; font-weight:bold;">En retard</span>
                                         <?php else: ?>
@@ -53,18 +64,23 @@
                                     </td>
                                     <td>
                                         <div style="display: flex; gap: 5px;">
+                                            <!-- Formulaire pour PROLONGER -->
                                             <form action="index.php?page=admin" method="POST" style="display:inline;">
                                                 <input type="hidden" name="action" value="prolonger">
                                                 <input type="hidden" name="id" value="<?= $emprunt->getId() ?>">
                                                 <button type="submit"
-                                                    style="background:#007bff; color:white; border:none; padding:5px 10px; border-radius:3px; cursor:pointer;">Prolonger</button>
+                                                    style="background:#007bff; color:white; border:none; padding:5px 10px; border-radius:3px; cursor:pointer;"
+                                                    title="Prolonger de 14 jours">Prolonger</button>
                                             </form>
+
+                                            <!-- Formulaire pour TERMINER (Supprimer) -->
                                             <form action="index.php?page=admin" method="POST" style="display:inline;"
-                                                onsubmit="return confirm('Confirmer la suppression/retour ?');">
+                                                onsubmit="return confirm('Le livre a-t-il été rendu ? Cette action supprimera l\'emprunt et remettra le livre en stock.');">
                                                 <input type="hidden" name="action" value="supprimer">
                                                 <input type="hidden" name="id" value="<?= $emprunt->getId() ?>">
                                                 <button type="submit"
-                                                    style="background:#dc3545; color:white; border:none; padding:5px 10px; border-radius:3px; cursor:pointer;">Terminer</button>
+                                                    style="background:#dc3545; color:white; border:none; padding:5px 10px; border-radius:3px; cursor:pointer;"
+                                                    title="Marquer comme rendu">Terminer</button>
                                             </form>
                                         </div>
                                     </td>
@@ -76,7 +92,7 @@
             </div>
         </section>
 
-        <!-- Section 2: Ajouter un Livre -->
+        <!-- Section 2 : Ajout de Livre -->
         <section class="admin-section">
             <h2>Ajouter un nouveau livre</h2>
             <form action="index.php?page=admin" method="post" enctype="multipart/form-data" class="add-book-form">
@@ -166,7 +182,7 @@
 </main>
 
 <style>
-    /* Basic styles for Admin Dashboard, assuming header styles are already loaded */
+    /* Styles spécifiques au Dashboard Admin */
     .admin-dashboard {
         padding: 40px 20px;
     }
@@ -192,7 +208,7 @@
         margin-bottom: 20px;
     }
 
-    /* Table */
+    /* Table Responsiveness */
     .table-responsive {
         overflow-x: auto;
     }
@@ -215,13 +231,7 @@
         font-weight: 600;
     }
 
-    /* Form */
-    .grid-form {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-    }
-
+    /* Form Styles */
     .form-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;

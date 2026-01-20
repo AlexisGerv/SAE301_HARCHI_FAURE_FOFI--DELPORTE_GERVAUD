@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Classe représentant un personnel (bibliothécaire ou étudiant). 
+ * Classe représentant un utilisateur générique (Personnel, Bibliothécaire ou Étudiant).
+ * Cette classe sert de base pour les types d'utilisateurs spécifiques.
  */
 declare(strict_types=1);
 class Utilisateur
@@ -10,9 +11,9 @@ class Utilisateur
     protected string $nom;
     protected string $prenom;
     protected string $mail_iut;
-    protected string $mdp;
-    protected bool $est_admin; //si true, l'utilisateur est un bibliothécaire
-    protected bool $peut_emprunter; // true si l'utilisateur peut emprunter, false sinon
+    protected string $mdp; // Mot de passe haché
+    protected bool $est_admin; // True si c'est un bibliothécaire/admin
+    protected bool $peut_emprunter; // True si l'utilisateur a le droit d'emprunter
 
     public function __construct(array $donnees = [])
     {

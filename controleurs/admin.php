@@ -1,7 +1,23 @@
 <?php
 // controleurs/admin.php
 
+/**
+ * Contrôleur du Tableau de Bord Administrateur (Bibliothécaire).
+ * 
+ * Fonctionnalités :
+ * 1. Vérification des droits d'accès (est_admin = 1).
+ * 2. Gestion des emprunts :
+ *    - Prolonger un emprunt (+14 jours).
+ *    - Supprimer/Terminer un emprunt (retour du livre et remise en stock).
+ * 3. Ajout de nouveaux livres :
+ *    - Traitement du formulaire.
+ *    - Upload de l'image de couverture.
+ *    - Insertion en BDD via ManagerLivre.
+ * 4. Affichage de la liste des emprunts en cours.
+ */
+
 require_once __DIR__ . '/../autoload.php';
+// Initialisation session
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -9,7 +25,9 @@ require_once __DIR__ . '/../modeles/connect.php';
 
 $rootPath = '../';
 
-// Access Control: Only admins (librarians) allowed
+// -------------------------------------------------------------
+// 1. Contrôle d'Accès : Réservé aux administrateurs
+// -------------------------------------------------------------
 if (!isset($_SESSION['user']) || !$_SESSION['user']->getEstAdmin()) {
     header('Location: ../index.php');
     exit();
@@ -20,38 +38,46 @@ $managerLivre = new ManagerLivre($bdd);
 
 $message = "";
 
-// Handle Actions
+// -------------------------------------------------------------
+// 2. Traitement des Actions (POST)
+// -------------------------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    // 1. Extend Loan
+
+    // --- Action : Prolonger un emprunt ---
     if ($_POST['action'] === 'prolonger' && isset($_POST['id'])) {
         $empruntId = (int) $_POST['id'];
         $emprunt = $managerEmprunt->getOne($empruntId);
         if ($emprunt) {
+            // Ajout de 14 jours à la date prévue
             $newDate = $emprunt->getDateRetourPrevue()->modify('+14 days');
             $emprunt->setDateRetourPrevue($newDate);
+            // Incrément du compteur de prolongations
             $emprunt->setNombreProlongations($emprunt->getNombreProlongations() + 1);
             $managerEmprunt->update($emprunt);
             $message = "Emprunt prolongé de 14 jours.";
         }
     }
-    // 2. Delete/Cancel Loan (Return Book)
+
+    // --- Action : Supprimer / Terminer un emprunt ---
     elseif ($_POST['action'] === 'supprimer' && isset($_POST['id'])) {
         $empruntId = (int) $_POST['id'];
         $emprunt = $managerEmprunt->getOne($empruntId);
         if ($emprunt) {
-            // Restore stock
+            // Restauration du stock du livre
             $livre = $managerLivre->getOne($emprunt->getLivreId());
             if ($livre) {
-                // Increment available copies
                 $livre->setNbExemplairesDisponible($livre->getNbExemplairesDisponible() + 1);
-                // Mark available if it was 0
+                // Si le livre était indisponible, il redevient disponible
+                $livre->setEstDisponible(true);
                 $managerLivre->update($livre);
             }
+            // Suppression de l'emprunt
             $managerEmprunt->delete($emprunt);
             $message = "Emprunt supprimé et livre rendu.";
         }
     }
-    // 3. Add Book
+
+    // --- Action : Ajouter un livre ---
     elseif ($_POST['action'] === 'add_book') {
         try {
             $data = [
@@ -66,21 +92,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 'est_disponible' => 1,
                 'format' => $_POST['format'],
                 'editeur' => $_POST['editeur'],
-                'mots_cles' => $_POST['mots_cles'], // String, handled by setter
+                'mots_cles' => $_POST['mots_cles'], // Géré par le setter de la classe Livre
                 'type_support' => $_POST['type_support'],
                 '_collection' => $_POST['_collection'],
                 'sudoc' => $_POST['sudoc'],
                 'nb_pages' => (int) $_POST['nb_pages'],
-                'image_couverture' => '' // Default empty
+                'image_couverture' => '' // Par défaut vide
             ];
 
-            // Handle Image Upload
+            // Traitement de l'upload d'image
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                 $uploadDir = __DIR__ . '/../public/assets/livre/';
                 $fileName = basename($_FILES['image']['name']);
                 $targetPath = $uploadDir . $fileName;
 
-                // Basic check for image type (optional but recommended)
+                // Vérification basique du type MIME
                 $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
                 if (in_array($_FILES['image']['type'], $allowedTypes)) {
                     if (move_uploaded_file($_FILES['image']['tmp_name'], $targetPath)) {
@@ -93,6 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 }
             }
 
+            // Création et persistance du livre
             $livre = new Livre($data);
             $managerLivre->add($livre);
             $message = "Livre ajouté avec succès !";
@@ -103,8 +130,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     }
 }
 
-// Fetch all loans
+// -------------------------------------------------------------
+// 3. Récupération des données pour l'affichage
+// -------------------------------------------------------------
+// Récupère tous les emprunts avec les infos utilisateurs et livres jointes
 $emprunts = $managerEmprunt->getAll();
 
-// Include View
+// Inclusion de la vue
 include __DIR__ . '/../vue/VueAdmin.php';

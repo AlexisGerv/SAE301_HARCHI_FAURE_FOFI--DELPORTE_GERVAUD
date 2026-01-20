@@ -10,14 +10,27 @@ require_once __DIR__ . '/../autoload.php';
 class Emprunt
 {
     private int $id;
-    private int $etudiant_id; // Référence à l'ID de l'utilisateur
+
+    /** @var int $etudiant_id ID de l'utilisateur qui emprunte */
+    private int $etudiant_id;
+
+    /** @var int $livre_id ID du livre emprunté */
     private int $livre_id;
+
+    /** @var DateTime $date_emprunt Date de début de l'emprunt */
     private DateTime $date_emprunt;
+
+    /** @var DateTime $date_retour_prevue Date limite de retour */
     private DateTime $date_retour_prevue;
+
+    /** @var bool $est_en_retard Indicateur de retard calculé */
     private bool $est_en_retard;
+
     private int $nombre_prolongations;
 
-    // Denormalized data for readability in DB
+    // --- Données dénormalisées (Issues de JOIN) ---
+    // Ces propriétés ne sont pas stockées dans la table Emprunt
+    // mais sont remplies à la volée par le Manager pour l'affichage.
     private string $nom_emprunteur = '';
     private string $prenom_emprunteur = '';
     private string $titre_livre = '';
