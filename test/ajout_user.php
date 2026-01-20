@@ -48,11 +48,11 @@ $mdp_clair="password";
 $mdp_hache=password_hash($mdp_clair, PASSWORD_DEFAULT);
 
 $donnees = [
-    'nom' => 'Meme',
-    'prenom' => 'Mati',
-    'mail_iut' => 'mati.meme@iut-dijon.u-bourgogne.fr',
+    'nom' => 'HARCHI',
+    'prenom' => 'Faure',
+    'mail_iut' => 'faure.harchi@iut-dijon.u-bourgogne.fr',
     'mdp' => $mdp_hache, 
-    'est_admin' => true,    // 1 pour bibliothécaire
+    'est_admin' => false,    // 1 pour bibliothécaire
     'peut_emprunter' => true
 ];
 

@@ -40,7 +40,7 @@
             </span>
         <?php endif; ?>
         </div>
-
+      <!-- mettre le bouton Emprunter ici -->
         <div class="book-resume">
         <h3>Résumé</h3>
         <p><?= nl2br(htmlspecialchars($livre->getResume())) ?></p>

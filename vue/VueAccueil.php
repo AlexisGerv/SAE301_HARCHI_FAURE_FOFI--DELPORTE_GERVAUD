@@ -39,49 +39,23 @@
     <section class="featured">
         <h2>Nouveautés</h2>
         <div class="book-grid">
-            <!-- Placeholder Card 1 -->
-            <div class="book-card">
-                <div class="book-image">
-                    <i class="fa-solid fa-book"></i>
-                </div>
-                <div class="book-info">
-                    <h3>Le Petit Prince</h3>
-                    <p>Antoine de Saint-Exupéry</p>
-                </div>
-            </div>
-
-            <!-- Placeholder Card 2 -->
-            <div class="book-card">
-                <div class="book-image">
-                    <i class="fa-solid fa-laptop-code"></i>
-                </div>
-                <div class="book-info">
-                    <h3>Apprendre le Web</h3>
-                    <p>Sophie Martin</p>
-                </div>
-            </div>
-
-            <!-- Placeholder Card 3 -->
-            <div class="book-card">
-                <div class="book-image">
-                    <i class="fa-solid fa-dna"></i>
-                </div>
-                <div class="book-info">
-                    <h3>Biologie Cellulaire</h3>
-                    <p>Jean Dupont</p>
-                </div>
-            </div>
-
-            <!-- Placeholder Card 4 -->
-            <div class="book-card">
-                <div class="book-image">
-                    <i class="fa-solid fa-paintbrush"></i>
-                </div>
-                <div class="book-info">
-                    <h3>Design UX/UI</h3>
-                    <p>Marie Curie</p>
-                </div>
-            </div>
+            <?php foreach ($nouveautes as $livre): ?>
+                <a href="<?= $rootPath ?>controleurs/livre.php?id=<?= htmlspecialchars($livre->getId()) ?>" class="book-card-link">
+                    <div class="book-card">
+                        <div class="book-image">
+                            <?php if (!empty($livre->getImageCouverture())): ?>
+                                <img src="<?= $rootPath ?>public/assets/livre/<?= htmlspecialchars($livre->getImageCouverture()) ?>" alt="<?= htmlspecialchars($livre->getTitre()) ?>" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                            <?php else: ?>
+                                <i class="fa-solid fa-book" style="font-size: 3rem; color: #ccc;"></i>
+                            <?php endif; ?>
+                        </div>
+                        <div class="book-info">
+                            <h3><?= htmlspecialchars($livre->getTitre()) ?></h3>
+                            <p><?= htmlspecialchars($livre->getAuteur()) ?></p>
+                        </div>
+                    </div>
+                </a>
+            <?php endforeach; ?>
         </div>
     </section>
 

@@ -12,10 +12,15 @@ $recherche = isset($_POST['recherche']) ? trim(htmlspecialchars($_POST['recherch
 
 // 2. Initialisation pour la VueAccueil.php
 $resultats = [];
+$nouveautes = [];
 
 // 3. Si une recherche est faite, on passe par le contrôleur dédié
 if (!empty($recherche)) {
     require_once './controleurs/recherche.php';
+} else {
+    // Sinon, on charge les nouveautés (tous les livres pour l'instant)
+    $managerLivre = new ManagerLivre($bdd);
+    $nouveautes = $managerLivre->getAll();
 }
 
 include './vue/VueHeader.php';
@@ -31,6 +36,9 @@ include './vue/VueHeader.php';
             break;
         case 'livre':
             include './vue/VueLivre.php';
+            break;
+        case 'admin':
+            include './controleurs/admin.php';
             break;
         default:
             include './vue/VueAccueil.php';

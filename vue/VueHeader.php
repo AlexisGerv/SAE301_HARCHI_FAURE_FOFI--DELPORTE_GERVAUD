@@ -30,6 +30,9 @@
             <a href="<?= $rootPath ?>index.php">Accueil</a>
             <?php if (isset($_SESSION['user'])): ?>
                 <span>Bonjour <?= htmlspecialchars($_SESSION['user']->getPrenom()) ?></span>
+                <?php if ($_SESSION['user']->getEstAdmin()): ?>
+                    <a href="<?= $rootPath ?>index.php?page=admin" style="color: #a10e2f; font-weight: bold;">Administration</a>
+                <?php endif; ?>
                 <a href="<?= $rootPath ?>controleurs/deconnexion.php">Déconnexion</a>
             <?php else: ?>
                 <a href="<?= $rootPath ?>index.php?page=connexion">Connexion</a>
