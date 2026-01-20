@@ -31,22 +31,8 @@ function render() {
 }
 
 function loadPage(url) {
-  if (!url || url === currentPage) return;
-  currentPage = url;
-
-  const content = document.getElementById("content");
-  if (!content) return;
-
-  content.style.opacity = 0;
-
-  setTimeout(() => {
-    fetch(url)
-      .then((r) => r.text())
-      .then((html) => {
-        content.innerHTML = html;
-        content.style.opacity = 1;
-      });
-  }, 200);
+  if (!url) return;
+  window.location.href = url;
 }
 
 function rotateToItem(clicked) {

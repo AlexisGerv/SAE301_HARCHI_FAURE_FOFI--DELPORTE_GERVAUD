@@ -9,23 +9,23 @@
 
     <div class="wheel">
 
-      <div class="item" data-page="<?= $rootPath ?>vue/VueSettings.php">
+      <div class="item" data-page="<?= $rootPath ?>index.php?page=settings">
         <?php include __DIR__ . '/../public/assets/icons/setting.svg'; ?>
       </div>
 
-      <div class="item" data-page="<?= $rootPath ?>vue/VueProfil.php">
+      <div class="item" data-page="<?= $rootPath ?>index.php?page=profil">
         <?php include __DIR__ . '/../public/assets/icons/profile.svg'; ?>
       </div>
 
-      <div class="item" data-page="<?= $rootPath ?>vue/VueAccueil.php">
+      <div class="item" data-page="<?= $rootPath ?>index.php?page=accueil">
         <?php include __DIR__ . '/../public/assets/icons/house.svg'; ?>
       </div>
 
-      <div class="item" data-page="<?= $rootPath ?>vue/VuePanier.php">
+      <div class="item" data-page="<?= $rootPath ?>index.php?page=panier">
         <?php include __DIR__ . '/../public/assets/icons/cart.svg'; ?>
       </div>
 
-      <div class="item" data-page="<?= $rootPath ?>vue/VueContact.php">
+      <div class="item" data-page="<?= $rootPath ?>index.php?page=contact">
         <?php include __DIR__ . '/../public/assets/icons/pin.svg'; ?>
       </div>
 
