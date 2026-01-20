@@ -24,6 +24,7 @@ class SPDO
       $this->PDOInstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       // La ligne magique pour ton pote si besoin :
       $this->PDOInstance->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, false);
+      $this->PDOInstance->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     } catch (PDOException $e) {
       die("Erreur de connexion : " . $e->getMessage());
     }

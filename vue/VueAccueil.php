@@ -9,13 +9,15 @@
 
         <?php
         // On parcourt chaque ligne récupérée dans la table 'Livre'
-        foreach ($resultats as $livre): ?>
+         foreach ($resultats as $livre): ?>
             <div class="livres_trouves">
-                <a href="./controleurs/livre.php?id=<?= htmlspecialchars($livre['id']) ?>"><h3><?= htmlspecialchars($livre['titre']) ?></h3></a>
+            <a href="index.php?page=livre&id=<?= $livre->getId() ?>">
+            <h3><?= htmlspecialchars($livre->getTitre()) ?></h3>
+        </a>
 
-                <p><?= htmlspecialchars($livre['_resume']) ?></p>
-            </div>
-        <?php endforeach; ?>
+        <p><?= htmlspecialchars($livre->getResume()) ?></p>
+    </div>
+<?php endforeach; ?>
 
     <?php
     // Si $resultats est vide mais que $recherche contient quelque chose, 

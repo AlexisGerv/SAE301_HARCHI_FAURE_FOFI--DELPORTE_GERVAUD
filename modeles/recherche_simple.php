@@ -1,12 +1,20 @@
 <?php
 // modeles/recherche_simple.php
 
-// La variable $bdd est déjà disponible car ce fichier est inclus via index.php
-$sql = "SELECT * FROM livre WHERE titre LIKE :mot OR _resume LIKE :mot";
+// On prépare la variable avec les wildcards pour le LIKE SQL
+$searchParam = "%" . $recherche . "%";
+
+// Requête simple qui cherche dans le titre
+$sql = "SELECT * FROM livre WHERE titre LIKE :recherche";
 $stmt = $bdd->prepare($sql);
 
-// Exécution avec les jokers %
-$stmt->execute(['mot' => '%' . $recherche . '%']);
+// On lie EXACTEMENT le paramètre attendu (:recherche)
+$stmt->execute([
+    'recherche' => $searchParam
+]);
 
-// On remplit le tableau de résultats que la VueAccueil va parcourir
-$resultats = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// On récupère les résultats sous forme d'objets Livre
+$resultats = [];
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $resultats[] = new Livre($row);
+}
