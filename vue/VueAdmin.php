@@ -20,6 +20,7 @@
                             <th>Date d'emprunt</th>
                             <th>Retour prévu</th>
                             <th>État</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,6 +50,23 @@
                                         <?php else: ?>
                                             <span style="color:green;">En cours</span>
                                         <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <div style="display: flex; gap: 5px;">
+                                            <form action="index.php?page=admin" method="POST" style="display:inline;">
+                                                <input type="hidden" name="action" value="prolonger">
+                                                <input type="hidden" name="id" value="<?= $emprunt->getId() ?>">
+                                                <button type="submit"
+                                                    style="background:#007bff; color:white; border:none; padding:5px 10px; border-radius:3px; cursor:pointer;">Prolonger</button>
+                                            </form>
+                                            <form action="index.php?page=admin" method="POST" style="display:inline;"
+                                                onsubmit="return confirm('Confirmer la suppression/retour ?');">
+                                                <input type="hidden" name="action" value="supprimer">
+                                                <input type="hidden" name="id" value="<?= $emprunt->getId() ?>">
+                                                <button type="submit"
+                                                    style="background:#dc3545; color:white; border:none; padding:5px 10px; border-radius:3px; cursor:pointer;">Terminer</button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

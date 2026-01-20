@@ -13,44 +13,20 @@ class ManagerEmprunt
 
     public function add(Emprunt $emprunt): void
     {
-       
-        if (empty($emprunt->getNomEmprunteur()) || empty($emprunt->getPrenomEmprunteur())) {
-            $sql = "SELECT nom, prenom FROM Utilisateur WHERE id = :id";
-            $stmt = $this->bdd->prepare($sql);
-            $stmt->execute(['id' => $emprunt->getEtudiantId()]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($user) {
-                $emprunt->setNomEmprunteur($user['nom']);
-                $emprunt->setPrenomEmprunteur($user['prenom']);
-            }
-        }
 
-        if (empty($emprunt->getTitreLivre())) {
-            $sql = "SELECT titre FROM Livre WHERE id = :id";
-            $stmt = $this->bdd->prepare($sql);
-            $stmt->execute(['id' => $emprunt->getLivreId()]);
-            $livre = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($livre) {
-                $emprunt->setTitreLivre($livre['titre']);
-            }
-        }
-
-        $sql = "INSERT INTO Emprunt (utilisateur_id, livre_id, date_emprunt, date_retour_prevue, est_en_retard, nombre_prolongations, nom_emprunteur, prenom_emprunteur, titre_livre) 
-                VALUES (:utilisateur_id, :livre_id, :date_emprunt, :date_retour_prevue, :est_en_retard, :nombre_prolongations, :nom_emprunteur, :prenom_emprunteur, :titre_livre)";
+        $sql = "INSERT INTO Emprunt (utilisateur_id, livre_id, date_emprunt, date_retour_prevue, est_en_retard, nombre_prolongations) 
+                VALUES (:utilisateur_id, :livre_id, :date_emprunt, :date_retour_prevue, :est_en_retard, :nombre_prolongations)";
         $stmt = $this->bdd->prepare($sql);
         $stmt->execute([
             'utilisateur_id' => $emprunt->getEtudiantId(),
             'livre_id' => $emprunt->getLivreId(),
             'date_emprunt' => $emprunt->getDateEmprunt()->format('Y-m-d'),
             'date_retour_prevue' => $emprunt->getDateRetourPrevue()->format('Y-m-d'),
-            'est_en_retard' => (int) $emprunt->isEstEnRetard(), // Cast bool to int for DB if needed, or PDO handles it. usually tinyint.
-            'nombre_prolongations' => $emprunt->getNombreProlongations(),
-            'nom_emprunteur' => $emprunt->getNomEmprunteur(),
-            'prenom_emprunteur' => $emprunt->getPrenomEmprunteur(),
-            'titre_livre' => $emprunt->getTitreLivre()
+            'est_en_retard' => (int) $emprunt->isEstEnRetard(),
+            'nombre_prolongations' => $emprunt->getNombreProlongations()
         ]);
 
-        $emprunt->setId((int) $this->bdd->lastInsertId()); // Cast int for DB if needed, or PDO handles it. usually tinyint.
+        $emprunt->setId((int) $this->bdd->lastInsertId());
     }
 
     public function update(Emprunt $emprunt): void
