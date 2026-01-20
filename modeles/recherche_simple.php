@@ -1,5 +1,6 @@
 <?php
 require_once("./modeles/connect.php");
+require_once __DIR__ . '/../../autoload.php';
 
 //  Gestion de la saisie utilisateur
 // On récupère 'recherche' depuis le formulaire du header (VueHeader.php)

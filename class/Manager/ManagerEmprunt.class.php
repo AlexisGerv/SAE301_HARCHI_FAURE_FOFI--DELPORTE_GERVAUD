@@ -13,7 +13,7 @@ class ManagerEmprunt
 
     public function add(Emprunt $emprunt): void
     {
-        // 1. Fetch denormalized data if missing
+       
         if (empty($emprunt->getNomEmprunteur()) || empty($emprunt->getPrenomEmprunteur())) {
             $sql = "SELECT nom, prenom FROM Utilisateur WHERE id = :id";
             $stmt = $this->bdd->prepare($sql);
