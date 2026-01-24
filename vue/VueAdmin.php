@@ -17,6 +17,71 @@
             </div>
         <?php endif; ?>
 
+        <!-- Section 0 : Demandes de Réservation -->
+        <section class="admin-section">
+            <h2>Demandes de Réservation en attente</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Demandeur</th>
+                            <th>Livre</th>
+                            <th>Date Demande</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($reservations)): ?>
+                            <tr>
+                                <td colspan="4">Aucune demande en attente.</td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($reservations as $resa): ?>
+                                <tr>
+                                    <td>
+                                        <?php if ($resa->getNomEmprunteur()): ?>
+                                            <?= htmlspecialchars($resa->getNomEmprunteur() . ' ' . $resa->getPrenomEmprunteur()) ?>
+                                        <?php else: ?>
+                                            <span style="color:red; font-style:italic;">Utilisateur Inconnu (ID:
+                                                <?= $resa->getUtilisateurId() ?>)</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <?= htmlspecialchars($resa->getTitreLivre()) ?> (ID: <?= $resa->getLivreId() ?>)
+                                    </td>
+                                    <td>
+                                        <?= $resa->getDateDemande()->format('d/m/Y') ?>
+                                    </td>
+                                    <td>
+                                        <div style="display: flex; gap: 5px;">
+                                            <!-- Formulaire ACCEPTER -->
+                                            <form action="index.php?page=admin" method="POST" style="display:inline;">
+                                                <input type="hidden" name="action" value="accept_reservation">
+                                                <input type="hidden" name="id" value="<?= $resa->getId() ?>">
+                                                <button type="submit"
+                                                    style="background:#28a745; color:white; border:none; padding:5px 10px; border-radius:3px; cursor:pointer;"
+                                                    title="Valider l'emprunt">Accepter</button>
+                                            </form>
+
+                                            <!-- Formulaire REFUSER -->
+                                            <form action="index.php?page=admin" method="POST" style="display:inline;"
+                                                onsubmit="return confirm('Refuser cette réservation ?');">
+                                                <input type="hidden" name="action" value="refuse_reservation">
+                                                <input type="hidden" name="id" value="<?= $resa->getId() ?>">
+                                                <button type="submit"
+                                                    style="background:#dc3545; color:white; border:none; padding:5px 10px; border-radius:3px; cursor:pointer;"
+                                                    title="Refuser la demande">Refuser</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <!-- Section 1 : Gestion des Emprunts -->
         <section class="admin-section">
             <h2>Emprunts en cours</h2>
@@ -41,8 +106,12 @@
                             <?php foreach ($emprunts as $emprunt): ?>
                                 <tr>
                                     <td>
-                                        <!-- Nom et Prénom récupérés via JOIN SQL -->
-                                        <?= htmlspecialchars($emprunt->getNomEmprunteur() . ' ' . $emprunt->getPrenomEmprunteur()) ?>
+                                        <?php if ($emprunt->getNomEmprunteur()): ?>
+                                            <?= htmlspecialchars($emprunt->getNomEmprunteur() . ' ' . $emprunt->getPrenomEmprunteur()) ?>
+                                        <?php else: ?>
+                                            <span style="color:red; font-style:italic;">Utilisateur Inconnu (ID:
+                                                <?= $emprunt->getEtudiantId() ?>)</span>
+                                        <?php endif; ?>
                                     </td>
                                     <td>
                                         <?= htmlspecialchars($emprunt->getTitreLivre()) ?> (ID:

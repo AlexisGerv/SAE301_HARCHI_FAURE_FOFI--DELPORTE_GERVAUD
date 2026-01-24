@@ -49,10 +49,11 @@
                 <!-- Section Bouton Emprunter -->
                 <?php if (isset($_SESSION['user']) && $_SESSION['user']->getPeutEmprunter()): ?>
                     <?php if ($livre->getNbExemplairesDisponible() > 0): ?>
-                        <!-- Formulaire d'emprunt : POST vers controleurs/emprunt.php -->
-                        <form action="controleurs/emprunt.php" method="post" style="margin-top: 15px;">
+                        <!-- Formulaire de réservation : POST vers controleurs/reserver.php -->
+                        <form action="controleurs/reserver.php" method="post" style="margin-top: 15px;">
                             <input type="hidden" name="livre_id" value="<?= $livre->getId() ?>">
-                            <button type="submit" class="btn-primary" style="width: 100%; max-width: 200px;">Emprunter ce
+                            <button type="submit" class="btn-primary"
+                                style="width: 100%; max-width: 200px; background-color: #28a745;">Réserver ce
                                 livre</button>
                         </form>
                     <?php else: ?>
@@ -101,13 +102,23 @@
     // Vérifie s'il y a un paramètre 'success' ou 'error' dans l'URL
     const urlParams = new URLSearchParams(window.location.search);
 
-    // Cas : Emprunt réussi
+    // Cas : Emprunt réussi (Legacy ou si rétabli)
     if (urlParams.has('success')) {
         alert("📚 Livre emprunté avec succès ! \n\nVous pouvez le retrouver dans votre espace personnel ou le rendre à la bibliothèque.");
-
-        // Nettoyage de l'URL pour ne pas réafficher le popup au rafraîchissement
         const newUrl = window.location.pathname + window.location.search.replace('&success=1', '').replace('?success=1', '');
         window.history.replaceState({}, document.title, newUrl);
+    }
+    
+    // Cas : Réservation réussie
+    if (urlParams.has('success_reservation')) {
+        alert("✅ Demande de réservation envoyée ! \n\nUn bibliothécaire validera votre demande sous peu.");
+        const newUrl = window.location.pathname + window.location.search.replace('&success_reservation=1', '').replace('?success_reservation=1', '');
+        window.history.replaceState({}, document.title, newUrl);
+    }
+    
+    // Cas : Déjà réservé
+    if (urlParams.get('error') === 'already_reserved') {
+        alert("⚠️ Vous avez déjà demandé la réservation de ce livre.");
     }
 
     // Cas : Livre indisponible

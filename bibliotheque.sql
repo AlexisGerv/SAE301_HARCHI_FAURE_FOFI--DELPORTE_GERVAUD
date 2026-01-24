@@ -40,6 +40,19 @@ CREATE TABLE `emprunt` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `reservation`
+--
+
+CREATE TABLE `reservation` (
+  `id` int(11) NOT NULL,
+  `utilisateur_id` int(11) NOT NULL,
+  `livre_id` int(11) NOT NULL,
+  `date_demande` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `livre`
 --
 

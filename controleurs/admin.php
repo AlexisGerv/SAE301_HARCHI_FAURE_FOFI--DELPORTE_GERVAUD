@@ -35,6 +35,7 @@ if (!isset($_SESSION['user']) || !$_SESSION['user']->getEstAdmin()) {
 
 $managerEmprunt = new ManagerEmprunt($bdd);
 $managerLivre = new ManagerLivre($bdd);
+$managerReservation = new ManagerReservation($bdd);
 
 $message = "";
 
@@ -128,13 +129,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $message = "Erreur : " . $e->getMessage();
         }
     }
+
+    // --- Action : Accepter une réservation ---
+    elseif ($_POST['action'] === 'accept_reservation' && isset($_POST['id'])) {
+        $reservationId = (int) $_POST['id'];
+        $reservation = $managerReservation->getOne($reservationId);
+
+        if ($reservation) {
+            $livre = $managerLivre->getOne($reservation->getLivreId());
+
+            if ($livre && $livre->getNbExemplairesDisponible() > 0) {
+                // Création de l'emprunt
+                $emprunt = new Emprunt([
+                    'utilisateur_id' => $reservation->getUtilisateurId(),
+                    'livre_id' => $reservation->getLivreId(),
+                    'date_emprunt' => new DateTime(),
+                    'date_retour_prevue' => new DateTime('+21 days'),
+                    'est_en_retard' => 0,
+                    'nombre_prolongations' => 0
+                ]);
+
+                try {
+                    $managerEmprunt->add($emprunt);
+
+                    // Décrémentation du stock
+                    $livre->setNbExemplairesDisponible($livre->getNbExemplairesDisponible() - 1);
+                    if ($livre->getNbExemplairesDisponible() === 0) {
+                        $livre->setEstDisponible(false);
+                    }
+                    $managerLivre->update($livre);
+
+                    // Suppression de la réservation
+                    $managerReservation->delete($reservationId);
+
+                    $message = "Réservation acceptée. Le livre est maintenant emprunté.";
+                } catch (PDOException $e) {
+                    $message = "Erreur : Impossible de créer l'emprunt. L'utilisateur ou le livre n'existe peut-être plus (Erreur SQL).";
+                }
+            } else {
+                $message = "Impossible d'accepter : plus d'exemplaire disponible.";
+            }
+        } else {
+            $message = "Erreur : Réservation introuvable (ID: " . $reservationId . ").";
+        }
+
+    }
+
+    // --- Action : Refuser une réservation ---
+    elseif ($_POST['action'] === 'refuse_reservation' && isset($_POST['id'])) {
+        $reservationId = (int) $_POST['id'];
+        $managerReservation->delete($reservationId);
+        $message = "Réservation refusée et supprimée.";
+    }
 }
+
 
 // -------------------------------------------------------------
 // 3. Récupération des données pour l'affichage
 // -------------------------------------------------------------
 // Récupère tous les emprunts avec les infos utilisateurs et livres jointes
 $emprunts = $managerEmprunt->getAll();
+$reservations = $managerReservation->getAll();
 
 // Inclusion de la vue
 include __DIR__ . '/../vue/VueAdmin.php';
