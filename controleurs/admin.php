@@ -64,6 +64,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $empruntId = (int) $_POST['id'];
         $emprunt = $managerEmprunt->getOne($empruntId);
         if ($emprunt) {
+            // Archivage dans l'historique
+            $managerHistorique = new ManagerHistorique($bdd);
+            $historique = new Historique([
+                'utilisateur_id' => $emprunt->getEtudiantId(),
+                'livre_id' => $emprunt->getLivreId(),
+                'date_emprunt' => $emprunt->getDateEmprunt(),
+                'date_retour_prevue' => $emprunt->getDateRetourPrevue(),
+                'date_retour_effectif' => new DateTime()
+            ]);
+            $managerHistorique->add($historique);
+
             // Restauration du stock du livre
             $livre = $managerLivre->getOne($emprunt->getLivreId());
             if ($livre) {
@@ -74,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             }
             // Suppression de l'emprunt
             $managerEmprunt->delete($emprunt);
-            $message = "Emprunt supprimé et livre rendu.";
+            $message = "Livre rendu et archivé avec succès.";
         }
     }
 
@@ -190,6 +201,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 // Récupère tous les emprunts avec les infos utilisateurs et livres jointes
 $emprunts = $managerEmprunt->getAll();
 $reservations = $managerReservation->getAll();
+$managerHistorique = new ManagerHistorique($bdd);
+$historique = $managerHistorique->getAll();
 
 // Inclusion de la vue
 include __DIR__ . '/../vue/VueAdmin.php';

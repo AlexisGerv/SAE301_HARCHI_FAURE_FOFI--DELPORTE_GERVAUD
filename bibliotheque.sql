@@ -27,6 +27,12 @@ SET time_zone = "+00:00";
 -- Structure de la table `emprunt`
 --
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `emprunt`
+--
+
 CREATE TABLE `emprunt` (
   `id` int(11) NOT NULL,
   `utilisateur_id` int(11) NOT NULL,
@@ -35,6 +41,21 @@ CREATE TABLE `emprunt` (
   `date_retour_prevue` date NOT NULL,
   `est_en_retard` tinyint(1) NOT NULL DEFAULT 0,
   `nombre_prolongations` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `historique_emprunt`
+--
+
+CREATE TABLE `historique_emprunt` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `utilisateur_id` int(11) NOT NULL,
+  `livre_id` int(11) NOT NULL,
+  `date_emprunt` date NOT NULL,
+  `date_retour_prevue` date NOT NULL,
+  `date_retour_effectif` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

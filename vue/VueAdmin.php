@@ -161,6 +161,39 @@
             </div>
         </section>
 
+        <!-- Section 1.5 : Historique des Emprunts -->
+        <section class="admin-section">
+            <h2>Historique des Emprunts</h2>
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Livre</th>
+                            <th>Utilisateur</th>
+                            <th>Emprunté le</th>
+                            <th>Rendu le</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($historique)): ?>
+                            <tr>
+                                <td colspan="4" style="text-align:center;">Aucun historique disponible.</td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($historique as $h): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($h->getTitreLivre()) ?></td>
+                                    <td><?= htmlspecialchars($h->getNomEmprunteur() . ' ' . $h->getPrenomEmprunteur()) ?></td>
+                                    <td><?= $h->getDateEmprunt()->format('d/m/Y') ?></td>
+                                    <td><?= $h->getDateRetourEffectif()->format('d/m/Y') ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <!-- Section 2 : Ajout de Livre -->
         <section class="admin-section">
             <h2>Ajouter un nouveau livre</h2>

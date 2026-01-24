@@ -64,6 +64,24 @@
                         </a>
                     <?php endif; ?>
 
+                    <style>
+                        .btn-profile {
+                            color: #333;
+                            margin-right: 15px;
+                            text-decoration: none;
+                            font-weight: 500;
+                        }
+
+                        .btn-profile:hover {
+                            color: #a10e2f;
+                        }
+                    </style>
+
+                    <!-- Bouton Mon Profil -->
+                    <a href="<?= $rootPath ?>index.php?page=profil" class="btn-profile" title="Mon Espace">
+                        <i class="fa-solid fa-user-circle"></i> Mon Profil
+                    </a>
+
                     <!-- Bouton Déconnexion -->
                     <a href="<?= $rootPath ?>controleurs/deconnexion.php" class="btn-logout" title="Déconnexion">
                         <i class="fa-solid fa-right-from-bracket"></i>

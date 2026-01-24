@@ -64,6 +64,30 @@ class ManagerReservation
     }
 
     /**
+     * Récupère les réservations d'un utilisateur spécifique.
+     */
+    public function getAllByUser(int $userId): array
+    {
+        $sql = "SELECT r.*, u.nom as nom_emprunteur, u.prenom as prenom_emprunteur, l.titre as titre_livre 
+                FROM reservation r
+                LEFT JOIN utilisateur u ON r.utilisateur_id = u.id
+                LEFT JOIN livre l ON r.livre_id = l.id
+                WHERE r.utilisateur_id = :uid
+                ORDER BY r.date_demande DESC";
+        $stmt = $this->bdd->prepare($sql);
+        $stmt->execute(['uid' => $userId]);
+        $reservations = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $reservation = new Reservation($row);
+            $reservation->setNomEmprunteur($row['nom_emprunteur']);
+            $reservation->setPrenomEmprunteur($row['prenom_emprunteur']);
+            $reservation->setTitreLivre($row['titre_livre']);
+            $reservations[] = $reservation;
+        }
+        return $reservations;
+    }
+
+    /**
      * Récupère une réservation par ID.
      */
     public function getOne(int $id): ?Reservation

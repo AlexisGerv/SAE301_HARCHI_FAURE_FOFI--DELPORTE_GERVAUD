@@ -70,7 +70,7 @@ include './vue/VueHeader.php';
             include './vue/VueSettings.php';
             break;
         case 'profil':
-            include './vue/VueProfil.php';
+            include './controleurs/profil.php';
             break;
         case 'contact':
             include './vue/VueContact.php';
